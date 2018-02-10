@@ -1,0 +1,41 @@
+[2017-11-22 22:32:32,964] Client.Client<Client:28002#ClientNode1>:OUTPUT: client starting
+[2017-11-22 22:32:32,979] Client.Client<Client:28002#ClientNode1>:OUTPUT: receive clientkeys
+[2017-11-22 22:32:33,479] Client.Client<Client:28002#ClientNode1>:OUTPUT: inside dosomework
+[2017-11-22 22:32:33,479] Client.Client<Client:28002#ClientNode1>:OUTPUT: Operation at the start of Client Id 1  is  put('movie3','star’)
+[2017-11-22 22:32:33,667] Client.Client<Client:28002#ClientNode1>:OUTPUT: INSIDE CLIENT RESULT PROOF RECEIVER: received result,signedresultproofs   for slot 2
+[2017-11-22 22:32:33,683] Client.Client<Client:28002#ClientNode1>:OUTPUT: Result Statements verified successfully for all replicas resultstmtarr is  ["OK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'", "OK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'", "OK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'"]
+[2017-11-22 22:32:33,698] Client.Client<Client:28002#ClientNode1>:OUTPUT: RESULT from tail is   OK
+[2017-11-22 22:32:33,714] Client.Client<Client:28002#ClientNode1>:OUTPUT: result in result proof from replicas are  OK
+[2017-11-22 22:32:33,714] Client.Client<Client:28002#ClientNode1>:OUTPUT: result in result proof from replicas are  OK
+[2017-11-22 22:32:33,714] Client.Client<Client:28002#ClientNode1>:OUTPUT: result in result proof from replicas are  OK
+[2017-11-22 22:32:33,714] Client.Client<Client:28002#ClientNode1>:OUTPUT: countreplicas(number of replicas having same hash(result)) are    3 total no of replicas(2t+1)  are  3
+[2017-11-22 22:32:33,714] Client.Client<Client:28002#ClientNode1>:OUTPUT: Client accepts the result since (t+1) majority of replicas have same result  OK
+[2017-11-22 22:32:33,729] Client.Client<Client:28002#ClientNode1>:OUTPUT: Operation at the start of Client Id 1  is  put('movie4','star’)
+[2017-11-22 22:32:35,733] Client.Client<Client:28002#ClientNode1>:OUTPUT: INSIDE TIMEOUT
+[2017-11-22 22:32:35,733] Client.Client<Client:28002#ClientNode1>:OUTPUT: Client also checks if the configuration has been changed
+[2017-11-22 22:32:36,748] da.sim.Router<OSProcessContainer-1>:ERROR: Could not send message due to: TransportException("connection refused by ('127.0.0.1', 14411)",)
+[2017-11-22 22:32:37,779] da.sim.Router<OSProcessContainer-1>:ERROR: Could not send message due to: TransportException("connection refused by ('127.0.0.1', 18597)",)
+[2017-11-22 22:32:38,795] da.sim.Router<OSProcessContainer-1>:ERROR: Could not send message due to: TransportException("connection refused by ('127.0.0.1', 18451)",)
+[2017-11-22 22:32:42,802] Client.Client<Client:28002#ClientNode1>:OUTPUT: Operation at the start of Client Id 1  is  put('movie5','star’)
+[2017-11-22 22:32:43,818] da.sim.Router<OSProcessContainer-1>:ERROR: Could not send message due to: TransportException("connection refused by ('127.0.0.1', 14411)",)
+[2017-11-22 22:32:43,818] Client.Client<Client:28002#ClientNode1>:OUTPUT: receive clientkeys
+[2017-11-22 22:32:43,818] Client.Client<Client:28002#ClientNode1>:OUTPUT: Yes the configuration has been changed.Notification received to Client from Olympus
+[2017-11-22 22:32:43,818] Client.Client<Client:28002#ClientNode1>:OUTPUT: Last executed result before Reconfiguration :  OK
+[2017-11-22 22:32:43,818] Client.Client<Client:28002#ClientNode1>:OUTPUT: Last executed operation number was :  2  and operation wass  put('movie4','star’)
+[2017-11-22 22:32:43,818] Client.Client<Client:28002#ClientNode1>:OUTPUT: WORK was :  ["put('movie3','star’)", "put('movie4','star’)", "put('movie5','star’)"]
+[2017-11-22 22:32:43,818] Client.Client<Client:28002#ClientNode1>:OUTPUT: WORK is :  ["put('movie5','star’)"]
+[2017-11-22 22:32:43,818] Client.Client<Client:28002#ClientNode1>:OUTPUT: inside dosomework
+[2017-11-22 22:32:43,818] Client.Client<Client:28002#ClientNode1>:OUTPUT: Operation at the start of Client Id 1  is  put('movie5','star’)
+[2017-11-22 22:32:43,833] Client.Client<Client:28002#ClientNode1>:OUTPUT: Yes the configuration has been changed.Notification received to Client from Olympus
+[2017-11-22 22:32:43,833] Client.Client<Client:28002#ClientNode1>:OUTPUT:  work after reconfig is  ["put('movie5','star’)"]
+[2017-11-22 22:32:43,833] Client.Client<Client:28002#ClientNode1>:OUTPUT: reconfigoccured - Sending further operations to new configuration..... 
+[2017-11-22 22:32:43,833] Client.Client<Client:28002#ClientNode1>:OUTPUT: localClientDict :  {'movie3': 'star’', 'movie4': 'star’', 'movie5': 'star’'} of client  1
+[2017-11-22 22:32:43,958] Client.Client<Client:28002#ClientNode1>:OUTPUT: INSIDE CLIENT RESULT PROOF RECEIVER: received result,signedresultproofs   for slot 2
+[2017-11-22 22:32:43,974] Client.Client<Client:28002#ClientNode1>:OUTPUT: Result Statements verified successfully for all replicas resultstmtarr is  ["OK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'", "OK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'", "OK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'"]
+[2017-11-22 22:32:43,974] Client.Client<Client:28002#ClientNode1>:OUTPUT: RESULT from tail is   OK
+[2017-11-22 22:32:43,974] Client.Client<Client:28002#ClientNode1>:OUTPUT: result in result proof from replicas are  OK
+[2017-11-22 22:32:43,974] Client.Client<Client:28002#ClientNode1>:OUTPUT: result in result proof from replicas are  OK
+[2017-11-22 22:32:43,989] Client.Client<Client:28002#ClientNode1>:OUTPUT: result in result proof from replicas are  OK
+[2017-11-22 22:32:43,989] Client.Client<Client:28002#ClientNode1>:OUTPUT: countreplicas(number of replicas having same hash(result)) are    3 total no of replicas(2t+1)  are  3
+[2017-11-22 22:32:43,989] Client.Client<Client:28002#ClientNode1>:OUTPUT: Client accepts the result since (t+1) majority of replicas have same result  OK
+[2017-11-22 22:32:43,989] Client.Client<Client:28002#ClientNode1>:OUTPUT: localClientDict :  {'movie3': 'star’', 'movie4': 'star’', 'movie5': 'star’'} of client  1

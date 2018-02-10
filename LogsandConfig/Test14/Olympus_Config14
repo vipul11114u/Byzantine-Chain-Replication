@@ -1,0 +1,18 @@
+[2017-11-22 22:56:53,804] Olympus.Node_<Node_:OlympusNode>:OUTPUT: len is  1
+[2017-11-22 22:56:53,804] Olympus.Node_<Node_:OlympusNode>:OUTPUT: MAIN done
+[2017-11-22 22:56:53,833] Olympus.Node_<Node_:OlympusNode>:OUTPUT: ClientNode0
+[2017-11-22 22:57:01,026] Olympus.Node_<Node_:OlympusNode>:OUTPUT: ClientNode1
+[2017-11-22 22:57:07,306] Olympus.Node_<Node_:OlympusNode>:OUTPUT: ClientNode2
+[2017-11-22 22:57:12,933] Olympus.Node_<Node_:OlympusNode>:OUTPUT: ReplicaNode0
+[2017-11-22 22:57:22,679] Olympus.Node_<Node_:OlympusNode>:OUTPUT: ReplicaNode1
+[2017-11-22 22:57:29,426] Olympus.Node_<Node_:OlympusNode>:OUTPUT: ReplicaNode2
+[2017-11-22 22:57:37,731] Olympus.Node_<Node_:OlympusNode>:OUTPUT: ReplicaNode3
+[2017-11-22 22:58:03,702] Olympus.Node_<Node_:OlympusNode>:OUTPUT: ReplicaNode4
+[2017-11-22 22:58:17,420] Olympus.Olympus<Olympus:da802#OlympusNode>:OUTPUT: key generation started
+[2017-11-22 22:58:17,421] Olympus.Olympus<Olympus:da802#OlympusNode>:OUTPUT: starting replica testing
+[2017-11-22 22:58:17,427] Olympus.Olympus<Olympus:da802#OlympusNode>:OUTPUT: send clientkeys
+[2017-11-22 22:58:17,429] Olympus.Olympus<Olympus:da802#OlympusNode>:OUTPUT: send clientkeys
+[2017-11-22 22:58:17,430] Olympus.Olympus<Olympus:da802#OlympusNode>:OUTPUT: send clientkeys
+[2017-11-22 22:58:17,431] Olympus.Olympus<Olympus:da802#OlympusNode>:OUTPUT: key generation ended
+[2017-11-22 22:58:29,523] Olympus.Olympus<Olympus:da802#OlympusNode>:OUTPUT: elapsed time (seconds):  12.101906776428223
+[2017-11-22 23:03:28,369] da.api<MainProcess>:WARNING: Received keyboard interrupt. 

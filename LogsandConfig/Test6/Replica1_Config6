@@ -1,0 +1,183 @@
+[2017-11-22 21:28:02,753] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: 
+
+
+
+
+[2017-11-22 21:28:02,754] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: --------REPLICA    IS    STARTED -------
+[2017-11-22 21:28:02,754] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: received replica keys
+[2017-11-22 21:28:02,757] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: replica receive setup  starting for confignum 0
+[2017-11-22 21:28:02,758] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: received failuretriggers :  [[1, 1, 2, 10, -2]]
+[2017-11-22 21:28:02,758] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: clientrequesttrigger is  []
+[2017-11-22 21:28:02,758] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: forwardedrequesttrigger is  []
+[2017-11-22 21:28:02,759] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: shuttletrigger is  [[1, 1, 10, -2]]
+[2017-11-22 21:28:02,759] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: resultshuttletrigger is  []
+[2017-11-22 21:28:02,759] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: wedgerequesttrigger is  []
+[2017-11-22 21:28:02,759] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: newconfigurationtrigger is  []
+[2017-11-22 21:28:02,760] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: checkpointtrigger is  []
+[2017-11-22 21:28:02,760] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: completedcheckpointtrigger is  []
+[2017-11-22 21:28:02,760] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: getrunningstatetrigger is  []
+[2017-11-22 21:28:02,761] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: catchuptrigger is  []
+[2017-11-22 21:28:03,267] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Shuttle : Inside replica 1  from Client 1  Signed Operation Stmt from previous Replicas is  b"\x1eq\x111\xd1\x93\xb8c\xcf\x92\xbc=\xf1&q\x07\xe86\x8f\x84\xfbW(\xef\x0c\xd8\xf2j\nC\\\x03\x8d\xb7GE\x97\x08\xe3#\xb3\x13\x8dE`\x8a\x1b\xc4\xf8\xcf\xe8*\xe8\xb4\x1f4\x03\xd6@\xba\xbf\x1b-\x031?put('jedi,'luke skywalker)" Signed Order Proofs are : [{'repind': 0, 'signedorderstmt': b"\x1eq\x111\xd1\x93\xb8c\xcf\x92\xbc=\xf1&q\x07\xe86\x8f\x84\xfbW(\xef\x0c\xd8\xf2j\nC\\\x03\x8d\xb7GE\x97\x08\xe3#\xb3\x13\x8dE`\x8a\x1b\xc4\xf8\xcf\xe8*\xe8\xb4\x1f4\x03\xd6@\xba\xbf\x1b-\x031?put('jedi,'luke skywalker)"}] Signed Result Proofs are : [b"\xf4o\x8a\xb2\x84_':\xc6)\x98\x8f\xb8\x91\x14\xff\xebX\xc3.\xc4\xe5\xfcC#r\xc2\xd0\xff$\x88\xca\xe7\xe7\xe3\x83\x81;\xf4a\x07q3b\xd6Nm\x7f\xc4\xc7\xc5\xf3\xbeQW\x10|\x84\xf2\x97\x9d\x94F\x0fOK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'"]
+[2017-11-22 21:28:03,267] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT:  client 1   message no  0
+[2017-11-22 21:28:03,268] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Shuttle : Verfied Operation is  put('jedi,'luke skywalker)
+[2017-11-22 21:28:03,268] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Shuttle : Slot is  1 confignum =  0
+[2017-11-22 21:28:03,268] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Previous Replicas OrderStmt Validation successful: OrderStmt is  1?put('jedi,'luke skywalker)
+[2017-11-22 21:28:03,268] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Signed orderstmt are appended to orderproof and history
+[2017-11-22 21:28:03,269] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: OPTDICT is  {}
+[2017-11-22 21:28:03,269] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: opdict  luke skywalker
+[2017-11-22 21:28:03,269] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: put  OK
+[2017-11-22 21:28:03,269] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT:  Result is   OK
+[2017-11-22 21:28:03,270] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: shuttle inside transmitshuttle() : resultstmt is  OK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'   signedresultstmt is  b'\x8f1-~\xfc\x96H\x8eIv\x97c\x01\x0b\x83\xf4\x12\xa8\xf4\x08\x13\x12\x9fH\xf2\x05\xc8K\x06\xb2N\xd4\xe9f=d\xc8\x07\x08{\xca\xf8C(\xa4p\xd7|h\x0f<\xdd"\xb5\xc6\xc0$$\xd9\x00b\xda\xab\tOK?b\'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3\''
+[2017-11-22 21:28:03,271] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: 
+ 
+ 
+[2017-11-22 21:28:03,272] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Shuttle : Inside replica 1  from Client 0  Signed Operation Stmt from previous Replicas is  b"\r\xea\xd5\xd5\x18\x02b\xfb\xde\x10K\x90\x92\x96\xfc\xe6q,\x91}\x1e\xd4\xf5\xbdX\x97\x15\x87\xea\xe7x\x9cov\xf8\xc7DlS\xb3Zb:\x0c\xa0^C\x00\xee\xa8-\xf1\xe3+\xc9L\xe0n\x0e3PP}\r2?put('movie','star\xe2\x80\x99)" Signed Order Proofs are : [{'repind': 0, 'signedorderstmt': b"\r\xea\xd5\xd5\x18\x02b\xfb\xde\x10K\x90\x92\x96\xfc\xe6q,\x91}\x1e\xd4\xf5\xbdX\x97\x15\x87\xea\xe7x\x9cov\xf8\xc7DlS\xb3Zb:\x0c\xa0^C\x00\xee\xa8-\xf1\xe3+\xc9L\xe0n\x0e3PP}\r2?put('movie','star\xe2\x80\x99)"}] Signed Result Proofs are : [b"\xf4o\x8a\xb2\x84_':\xc6)\x98\x8f\xb8\x91\x14\xff\xebX\xc3.\xc4\xe5\xfcC#r\xc2\xd0\xff$\x88\xca\xe7\xe7\xe3\x83\x81;\xf4a\x07q3b\xd6Nm\x7f\xc4\xc7\xc5\xf3\xbeQW\x10|\x84\xf2\x97\x9d\x94F\x0fOK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'"]
+[2017-11-22 21:28:03,272] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT:  client 0   message no  0
+[2017-11-22 21:28:03,272] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Shuttle : Verfied Operation is  put('movie','star’)
+[2017-11-22 21:28:03,273] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Shuttle : Slot is  2 confignum =  0
+[2017-11-22 21:28:03,273] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Previous Replicas OrderStmt Validation successful: OrderStmt is  2?put('movie','star’)
+[2017-11-22 21:28:03,274] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Signed orderstmt are appended to orderproof and history
+[2017-11-22 21:28:03,274] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: OPTDICT is  {'jedi': 'luke skywalker'}
+[2017-11-22 21:28:03,274] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: opdict  star’
+[2017-11-22 21:28:03,274] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: put  OK
+[2017-11-22 21:28:03,274] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT:  Result is   OK
+[2017-11-22 21:28:03,275] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: shuttle inside transmitshuttle() : resultstmt is  OK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'   signedresultstmt is  b'\x8f1-~\xfc\x96H\x8eIv\x97c\x01\x0b\x83\xf4\x12\xa8\xf4\x08\x13\x12\x9fH\xf2\x05\xc8K\x06\xb2N\xd4\xe9f=d\xc8\x07\x08{\xca\xf8C(\xa4p\xd7|h\x0f<\xdd"\xb5\xc6\xc0$$\xd9\x00b\xda\xab\tOK?b\'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3\''
+[2017-11-22 21:28:03,275] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: 
+ 
+ 
+[2017-11-22 21:28:03,276] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Shuttle : Inside replica 1  from Client 2  Signed Operation Stmt from previous Replicas is  b"_\xd7\x0cP^\xbdi\xe3p\xcb\xb0gY?\xb1\x01\xcefIl^z\xad.)\x08\xaf\xe3Q\xd1\x12\xd3\n\xacx\x01\x81\xb4\xfe.\xd2\tR\xad\xe6[\x89\xa8\xde\x13\xff,\xfb\xfao\x045{2j\xebA8\n3?put('movie3\xe2\x80\x99,\xe2\x80\x99star3\xe2\x80\x99)" Signed Order Proofs are : [{'repind': 0, 'signedorderstmt': b"_\xd7\x0cP^\xbdi\xe3p\xcb\xb0gY?\xb1\x01\xcefIl^z\xad.)\x08\xaf\xe3Q\xd1\x12\xd3\n\xacx\x01\x81\xb4\xfe.\xd2\tR\xad\xe6[\x89\xa8\xde\x13\xff,\xfb\xfao\x045{2j\xebA8\n3?put('movie3\xe2\x80\x99,\xe2\x80\x99star3\xe2\x80\x99)"}] Signed Result Proofs are : [b"\xf4o\x8a\xb2\x84_':\xc6)\x98\x8f\xb8\x91\x14\xff\xebX\xc3.\xc4\xe5\xfcC#r\xc2\xd0\xff$\x88\xca\xe7\xe7\xe3\x83\x81;\xf4a\x07q3b\xd6Nm\x7f\xc4\xc7\xc5\xf3\xbeQW\x10|\x84\xf2\x97\x9d\x94F\x0fOK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'"]
+[2017-11-22 21:28:03,276] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT:  client 2   message no  0
+[2017-11-22 21:28:03,277] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Shuttle : Verfied Operation is  put('movie3’,’star3’)
+[2017-11-22 21:28:03,277] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Shuttle : Slot is  3 confignum =  0
+[2017-11-22 21:28:03,277] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Previous Replicas OrderStmt Validation successful: OrderStmt is  3?put('movie3’,’star3’)
+[2017-11-22 21:28:03,277] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Signed orderstmt are appended to orderproof and history
+[2017-11-22 21:28:03,278] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: OPTDICT is  {'jedi': 'luke skywalker', 'movie': 'star’'}
+[2017-11-22 21:28:03,278] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: opdict  ’star3’
+[2017-11-22 21:28:03,278] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: put  OK
+[2017-11-22 21:28:03,279] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT:  Result is   OK
+[2017-11-22 21:28:03,279] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: shuttle inside transmitshuttle() : resultstmt is  OK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'   signedresultstmt is  b'\x8f1-~\xfc\x96H\x8eIv\x97c\x01\x0b\x83\xf4\x12\xa8\xf4\x08\x13\x12\x9fH\xf2\x05\xc8K\x06\xb2N\xd4\xe9f=d\xc8\x07\x08{\xca\xf8C(\xa4p\xd7|h\x0f<\xdd"\xb5\xc6\xc0$$\xd9\x00b\xda\xab\tOK?b\'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3\''
+[2017-11-22 21:28:03,281] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: 
+ 
+ 
+[2017-11-22 21:28:03,282] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: ResultShuttle :  inside result shuttle Client Id is  1  Result is  OK  Unique Id for caching Result Shuttle : Client11  Result Proof  [b"\xf4o\x8a\xb2\x84_':\xc6)\x98\x8f\xb8\x91\x14\xff\xebX\xc3.\xc4\xe5\xfcC#r\xc2\xd0\xff$\x88\xca\xe7\xe7\xe3\x83\x81;\xf4a\x07q3b\xd6Nm\x7f\xc4\xc7\xc5\xf3\xbeQW\x10|\x84\xf2\x97\x9d\x94F\x0fOK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'", b'\x8f1-~\xfc\x96H\x8eIv\x97c\x01\x0b\x83\xf4\x12\xa8\xf4\x08\x13\x12\x9fH\xf2\x05\xc8K\x06\xb2N\xd4\xe9f=d\xc8\x07\x08{\xca\xf8C(\xa4p\xd7|h\x0f<\xdd"\xb5\xc6\xc0$$\xd9\x00b\xda\xab\tOK?b\'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3\'', b'B\xa49%K\xcd\x02\xb8\xf3ZR$j.\x9c\x8b\xc7\x99\x988\xfa\x0b\r\xbc0\x7f\x9c\xbf\x98\x06\xe8q\xcb\x91\xe6\xe4\xf9\xb1.\x17Z\xdb\x8dV\xbc\x05"G\x131\xf4\x90I\xc0\xf2\x80\xd3\xcalAb{l\rOK?b\'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3\'']
+[2017-11-22 21:28:03,282] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT:  message no  0
+[2017-11-22 21:28:03,283] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Caching of result and resultproofs in clientidmap ( which stores the result ,resultproof at unique Id  Client11
+[2017-11-22 21:28:03,285] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: 
+  
+[2017-11-22 21:28:03,288] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Shuttle : Inside replica 1  from Client 1  Signed Operation Stmt from previous Replicas is  b"T\xa0,$\x1cc(\x1f(\xdc\xe3A\xef\xffY*ZF@\x88\xa8\xd6\xf8\x05\xe0l\xfd\xa2J\xf8{:\x89\x1e\x99<\r,\xa9#\xe5)\xbe\xba\x9b\x8em\xc0]\x97\t(\xe4\\\xd7\x8e3ML7o\x89\xa3\r4?slice('jedi','0:4')" Signed Order Proofs are : [{'repind': 0, 'signedorderstmt': b"T\xa0,$\x1cc(\x1f(\xdc\xe3A\xef\xffY*ZF@\x88\xa8\xd6\xf8\x05\xe0l\xfd\xa2J\xf8{:\x89\x1e\x99<\r,\xa9#\xe5)\xbe\xba\x9b\x8em\xc0]\x97\t(\xe4\\\xd7\x8e3ML7o\x89\xa3\r4?slice('jedi','0:4')"}] Signed Result Proofs are : [b"\xf4o\x8a\xb2\x84_':\xc6)\x98\x8f\xb8\x91\x14\xff\xebX\xc3.\xc4\xe5\xfcC#r\xc2\xd0\xff$\x88\xca\xe7\xe7\xe3\x83\x81;\xf4a\x07q3b\xd6Nm\x7f\xc4\xc7\xc5\xf3\xbeQW\x10|\x84\xf2\x97\x9d\x94F\x0fOK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'"]
+[2017-11-22 21:28:03,290] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT:  client 1   message no  1
+[2017-11-22 21:28:03,290] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: checkshuttletrigger for config =  1 and message =  1
+[2017-11-22 21:28:03,291] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Shuttle : Verfied Operation is  slice('jedi','0:4')
+[2017-11-22 21:28:03,291] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Shuttle : Slot is  4 confignum =  0
+[2017-11-22 21:28:03,292] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Previous Replicas OrderStmt Validation successful: OrderStmt is  4?slice('jedi','0:4')
+[2017-11-22 21:28:03,292] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Signed orderstmt are appended to orderproof and history
+[2017-11-22 21:28:03,292] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: OPTDICT is  {'jedi': 'luke skywalker', 'movie': 'star’', 'movie3’': '’star3’'}
+[2017-11-22 21:28:03,292] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: slice  OK
+[2017-11-22 21:28:03,293] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT:  Result is   OK
+[2017-11-22 21:28:03,293] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: invalid_result_sig() failure has been injected at Replica 1  Client 1  slot  4
+[2017-11-22 21:28:03,293] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: shuttle inside transmitshuttle() : resultstmt is  OK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'   signedresultstmt is  b'\x901-~\xfc\x96H\x8eIv\x97c\x01\x0b\x83\xf4\x12\xa8\xf4\x08\x13\x12\x9fH\xf2\x05\xc8K\x06\xb2N\xd4\xe9f=d\xc8\x07\x08{\xca\xf8C(\xa4p\xd7|h\x0f<\xdd"\xb5\xc6\xc0$$\xd9\x00b\xda\xab\tOK?b\'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3\''
+[2017-11-22 21:28:03,294] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: 
+ 
+ 
+[2017-11-22 21:28:03,296] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: ResultShuttle :  inside result shuttle Client Id is  0  Result is  OK  Unique Id for caching Result Shuttle : Client01  Result Proof  [b"\xf4o\x8a\xb2\x84_':\xc6)\x98\x8f\xb8\x91\x14\xff\xebX\xc3.\xc4\xe5\xfcC#r\xc2\xd0\xff$\x88\xca\xe7\xe7\xe3\x83\x81;\xf4a\x07q3b\xd6Nm\x7f\xc4\xc7\xc5\xf3\xbeQW\x10|\x84\xf2\x97\x9d\x94F\x0fOK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'", b'\x8f1-~\xfc\x96H\x8eIv\x97c\x01\x0b\x83\xf4\x12\xa8\xf4\x08\x13\x12\x9fH\xf2\x05\xc8K\x06\xb2N\xd4\xe9f=d\xc8\x07\x08{\xca\xf8C(\xa4p\xd7|h\x0f<\xdd"\xb5\xc6\xc0$$\xd9\x00b\xda\xab\tOK?b\'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3\'', b'B\xa49%K\xcd\x02\xb8\xf3ZR$j.\x9c\x8b\xc7\x99\x988\xfa\x0b\r\xbc0\x7f\x9c\xbf\x98\x06\xe8q\xcb\x91\xe6\xe4\xf9\xb1.\x17Z\xdb\x8dV\xbc\x05"G\x131\xf4\x90I\xc0\xf2\x80\xd3\xcalAb{l\rOK?b\'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3\'']
+[2017-11-22 21:28:03,297] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT:  message no  0
+[2017-11-22 21:28:03,298] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Caching of result and resultproofs in clientidmap ( which stores the result ,resultproof at unique Id  Client01
+[2017-11-22 21:28:03,299] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: 
+  
+[2017-11-22 21:28:03,301] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Shuttle : Inside replica 1  from Client 0  Signed Operation Stmt from previous Replicas is  b"\xd4\xb5\xe2\xe1\xc4D2h\xb1\xa3\x93!e=C\xffxr9\x16\xd7{!?X\x9fk\x82\xeb\x829\xf24\x8f0\xd2\x81\xec\xfc\x81\x92u\xc8\x86\xde\xccP\xd7\x08\xf8\xc8\xe2\x19\xe3\xfbP5f\x93\xe2\x82a\xd3\x0b5?append('movie',' wars')" Signed Order Proofs are : [{'repind': 0, 'signedorderstmt': b"\xd4\xb5\xe2\xe1\xc4D2h\xb1\xa3\x93!e=C\xffxr9\x16\xd7{!?X\x9fk\x82\xeb\x829\xf24\x8f0\xd2\x81\xec\xfc\x81\x92u\xc8\x86\xde\xccP\xd7\x08\xf8\xc8\xe2\x19\xe3\xfbP5f\x93\xe2\x82a\xd3\x0b5?append('movie',' wars')"}] Signed Result Proofs are : [b"\xf4o\x8a\xb2\x84_':\xc6)\x98\x8f\xb8\x91\x14\xff\xebX\xc3.\xc4\xe5\xfcC#r\xc2\xd0\xff$\x88\xca\xe7\xe7\xe3\x83\x81;\xf4a\x07q3b\xd6Nm\x7f\xc4\xc7\xc5\xf3\xbeQW\x10|\x84\xf2\x97\x9d\x94F\x0fOK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'"]
+[2017-11-22 21:28:03,301] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT:  client 0   message no  1
+[2017-11-22 21:28:03,301] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Shuttle : Verfied Operation is  append('movie',' wars')
+[2017-11-22 21:28:03,301] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Shuttle : Slot is  5 confignum =  0
+[2017-11-22 21:28:03,302] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Previous Replicas OrderStmt Validation successful: OrderStmt is  5?append('movie',' wars')
+[2017-11-22 21:28:03,302] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Signed orderstmt are appended to orderproof and history
+[2017-11-22 21:28:03,302] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: OPTDICT is  {'jedi': 'luke', 'movie': 'star’', 'movie3’': '’star3’'}
+[2017-11-22 21:28:03,302] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: append
+[2017-11-22 21:28:03,302] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT:  Result is   OK
+[2017-11-22 21:28:03,303] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: shuttle inside transmitshuttle() : resultstmt is  OK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'   signedresultstmt is  b'\x8f1-~\xfc\x96H\x8eIv\x97c\x01\x0b\x83\xf4\x12\xa8\xf4\x08\x13\x12\x9fH\xf2\x05\xc8K\x06\xb2N\xd4\xe9f=d\xc8\x07\x08{\xca\xf8C(\xa4p\xd7|h\x0f<\xdd"\xb5\xc6\xc0$$\xd9\x00b\xda\xab\tOK?b\'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3\''
+[2017-11-22 21:28:03,303] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: CheckPointing is done at this slot no  5
+[2017-11-22 21:28:03,303] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT:  signed checkpoint is  b's\xa2\x1d\x16.ry\xc3\x1b|\xa9\xfdK\xa3\x18\x9e\xa8\xed(\xb3\x854\x1e66\xa5\xb8J\x8b\xd3"\x9f\xc43\xd4xp\xb8\x01Z5\\W8X\xabZ\xfejQ\xbb\xee;\x9dw~\xf9\x85(e\xf6\x8bf\x03b\'9a0529a33acbefcca28c24ed960f64de4a57ba51a358bfa3b7b59a5f0bef8054\''  replica index is  1
+[2017-11-22 21:28:03,304] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: 
+ 
+ 
+[2017-11-22 21:28:03,305] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: ResultShuttle :  inside result shuttle Client Id is  2  Result is  OK  Unique Id for caching Result Shuttle : Client21  Result Proof  [b"\xf4o\x8a\xb2\x84_':\xc6)\x98\x8f\xb8\x91\x14\xff\xebX\xc3.\xc4\xe5\xfcC#r\xc2\xd0\xff$\x88\xca\xe7\xe7\xe3\x83\x81;\xf4a\x07q3b\xd6Nm\x7f\xc4\xc7\xc5\xf3\xbeQW\x10|\x84\xf2\x97\x9d\x94F\x0fOK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'", b'\x8f1-~\xfc\x96H\x8eIv\x97c\x01\x0b\x83\xf4\x12\xa8\xf4\x08\x13\x12\x9fH\xf2\x05\xc8K\x06\xb2N\xd4\xe9f=d\xc8\x07\x08{\xca\xf8C(\xa4p\xd7|h\x0f<\xdd"\xb5\xc6\xc0$$\xd9\x00b\xda\xab\tOK?b\'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3\'', b'B\xa49%K\xcd\x02\xb8\xf3ZR$j.\x9c\x8b\xc7\x99\x988\xfa\x0b\r\xbc0\x7f\x9c\xbf\x98\x06\xe8q\xcb\x91\xe6\xe4\xf9\xb1.\x17Z\xdb\x8dV\xbc\x05"G\x131\xf4\x90I\xc0\xf2\x80\xd3\xcalAb{l\rOK?b\'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3\'']
+[2017-11-22 21:28:03,306] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT:  message no  0
+[2017-11-22 21:28:03,307] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Caching of result and resultproofs in clientidmap ( which stores the result ,resultproof at unique Id  Client21
+[2017-11-22 21:28:03,307] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: 
+  
+[2017-11-22 21:28:03,309] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: ResultShuttle :  inside result shuttle Client Id is  1  Result is  OK  Unique Id for caching Result Shuttle : Client12  Result Proof  [b"\xf4o\x8a\xb2\x84_':\xc6)\x98\x8f\xb8\x91\x14\xff\xebX\xc3.\xc4\xe5\xfcC#r\xc2\xd0\xff$\x88\xca\xe7\xe7\xe3\x83\x81;\xf4a\x07q3b\xd6Nm\x7f\xc4\xc7\xc5\xf3\xbeQW\x10|\x84\xf2\x97\x9d\x94F\x0fOK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'", b'\x901-~\xfc\x96H\x8eIv\x97c\x01\x0b\x83\xf4\x12\xa8\xf4\x08\x13\x12\x9fH\xf2\x05\xc8K\x06\xb2N\xd4\xe9f=d\xc8\x07\x08{\xca\xf8C(\xa4p\xd7|h\x0f<\xdd"\xb5\xc6\xc0$$\xd9\x00b\xda\xab\tOK?b\'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3\'', b'B\xa49%K\xcd\x02\xb8\xf3ZR$j.\x9c\x8b\xc7\x99\x988\xfa\x0b\r\xbc0\x7f\x9c\xbf\x98\x06\xe8q\xcb\x91\xe6\xe4\xf9\xb1.\x17Z\xdb\x8dV\xbc\x05"G\x131\xf4\x90I\xc0\xf2\x80\xd3\xcalAb{l\rOK?b\'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3\'']
+[2017-11-22 21:28:03,309] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT:  message no  1
+[2017-11-22 21:28:03,310] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: BadSignatureError : Send Reconfiguration request to Olympus because one of  replica's result stmt was  not signed correctly raising reconfig 
+[2017-11-22 21:28:03,313] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Caching of result and resultproofs in clientidmap ( which stores the result ,resultproof at unique Id  Client12
+[2017-11-22 21:28:03,314] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: 
+  
+[2017-11-22 21:28:03,316] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Shuttle : Inside replica 1  from Client 2  Signed Operation Stmt from previous Replicas is  b"[\xf69u\x0e\xf2\xfc2\xd8\xc8#\xac\xbcE\xbb \x85\x83\x8e}#\xf2A\x18\x93\xd3\x9a\xd1\xd7\xaa\xb5\xf95\xf7F\xe5G\x90\x87\x16\xb4N9.\x85\x89\x8d.D\xbf\x91\x9d\xe9\xc3m4TQ\xef\xca\x10\xf8G\r6?append('movie3\xe2\x80\x99,\xe2\x80\x99 wars3\xe2\x80\x99)" Signed Order Proofs are : [{'repind': 0, 'signedorderstmt': b"[\xf69u\x0e\xf2\xfc2\xd8\xc8#\xac\xbcE\xbb \x85\x83\x8e}#\xf2A\x18\x93\xd3\x9a\xd1\xd7\xaa\xb5\xf95\xf7F\xe5G\x90\x87\x16\xb4N9.\x85\x89\x8d.D\xbf\x91\x9d\xe9\xc3m4TQ\xef\xca\x10\xf8G\r6?append('movie3\xe2\x80\x99,\xe2\x80\x99 wars3\xe2\x80\x99)"}] Signed Result Proofs are : [b"\xf4o\x8a\xb2\x84_':\xc6)\x98\x8f\xb8\x91\x14\xff\xebX\xc3.\xc4\xe5\xfcC#r\xc2\xd0\xff$\x88\xca\xe7\xe7\xe3\x83\x81;\xf4a\x07q3b\xd6Nm\x7f\xc4\xc7\xc5\xf3\xbeQW\x10|\x84\xf2\x97\x9d\x94F\x0fOK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'"]
+[2017-11-22 21:28:03,316] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT:  client 2   message no  1
+[2017-11-22 21:28:03,317] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Shuttle : Verfied Operation is  append('movie3’,’ wars3’)
+[2017-11-22 21:28:03,317] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Shuttle : Slot is  6 confignum =  0
+[2017-11-22 21:28:03,317] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Previous Replicas OrderStmt Validation successful: OrderStmt is  6?append('movie3’,’ wars3’)
+[2017-11-22 21:28:03,318] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Signed orderstmt are appended to orderproof and history
+[2017-11-22 21:28:03,318] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: OPTDICT is  {'jedi': 'luke', 'movie': 'star’ wars', 'movie3’': '’star3’'}
+[2017-11-22 21:28:03,318] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: append
+[2017-11-22 21:28:03,319] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT:  Result is   OK
+[2017-11-22 21:28:03,319] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: shuttle inside transmitshuttle() : resultstmt is  OK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'   signedresultstmt is  b'\x8f1-~\xfc\x96H\x8eIv\x97c\x01\x0b\x83\xf4\x12\xa8\xf4\x08\x13\x12\x9fH\xf2\x05\xc8K\x06\xb2N\xd4\xe9f=d\xc8\x07\x08{\xca\xf8C(\xa4p\xd7|h\x0f<\xdd"\xb5\xc6\xc0$$\xd9\x00b\xda\xab\tOK?b\'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3\''
+[2017-11-22 21:28:03,319] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: 
+ 
+ 
+[2017-11-22 21:28:03,320] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT:  wedgeRequest RECEIEVED for config 0
+[2017-11-22 21:28:03,321] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT:  rmode set to IMMUTABLE 
+[2017-11-22 21:28:03,322] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: ResultShuttle :  inside result shuttle Client Id is  0  Result is  OK  Unique Id for caching Result Shuttle : Client02  Result Proof  [b"\xf4o\x8a\xb2\x84_':\xc6)\x98\x8f\xb8\x91\x14\xff\xebX\xc3.\xc4\xe5\xfcC#r\xc2\xd0\xff$\x88\xca\xe7\xe7\xe3\x83\x81;\xf4a\x07q3b\xd6Nm\x7f\xc4\xc7\xc5\xf3\xbeQW\x10|\x84\xf2\x97\x9d\x94F\x0fOK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'", b'\x8f1-~\xfc\x96H\x8eIv\x97c\x01\x0b\x83\xf4\x12\xa8\xf4\x08\x13\x12\x9fH\xf2\x05\xc8K\x06\xb2N\xd4\xe9f=d\xc8\x07\x08{\xca\xf8C(\xa4p\xd7|h\x0f<\xdd"\xb5\xc6\xc0$$\xd9\x00b\xda\xab\tOK?b\'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3\'', b'B\xa49%K\xcd\x02\xb8\xf3ZR$j.\x9c\x8b\xc7\x99\x988\xfa\x0b\r\xbc0\x7f\x9c\xbf\x98\x06\xe8q\xcb\x91\xe6\xe4\xf9\xb1.\x17Z\xdb\x8dV\xbc\x05"G\x131\xf4\x90I\xc0\xf2\x80\xd3\xcalAb{l\rOK?b\'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3\'']
+[2017-11-22 21:28:03,322] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT:  message no  1
+[2017-11-22 21:28:03,323] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Caching of result and resultproofs in clientidmap ( which stores the result ,resultproof at unique Id  Client02
+[2017-11-22 21:28:03,323] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: 
+  
+[2017-11-22 21:28:03,325] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: Completed CheckPoint :  at slot no  5   inside completed checkpoint shuttle Completed CheckPoint Proofs are  [b'\x97\xfaZ\xba\x14A\xd6\x9f\x82j"x\xcf\x19\x0c\xa2!\xcd\xd6\xf9W\x89R\xde<\xc3H\xddyio\x94\xc7\xa2X\n\'\xe5\x07\xb8\xc9\xcc\xe13\xa8\xdf*\x07:`\x17\xab\x8e\xc0\xaa\xcal\xbf,h\xa4\t<\x03b\'9a0529a33acbefcca28c24ed960f64de4a57ba51a358bfa3b7b59a5f0bef8054\'', b's\xa2\x1d\x16.ry\xc3\x1b|\xa9\xfdK\xa3\x18\x9e\xa8\xed(\xb3\x854\x1e66\xa5\xb8J\x8b\xd3"\x9f\xc43\xd4xp\xb8\x01Z5\\W8X\xabZ\xfejQ\xbb\xee;\x9dw~\xf9\x85(e\xf6\x8bf\x03b\'9a0529a33acbefcca28c24ed960f64de4a57ba51a358bfa3b7b59a5f0bef8054\'', b'\xb1\xd6I\x0e\x03s\xef\xae\x006f\x9bwe\xf4W\x0c\xd2\xb1P\xdc\xfc?\xe8\xfb\xdf\x81TL\xbeY\x95\x94\xc0x8"N\x1d\xb0\x10\x0e\xb8\x90\xe2\xe7m\xf4\xe6\xfd\x04\xd44\xdaj\xbe\xa7\x00;Tb\xfet\nb\'9a0529a33acbefcca28c24ed960f64de4a57ba51a358bfa3b7b59a5f0bef8054\'']
+[2017-11-22 21:28:03,325] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT:  message no  0
+[2017-11-22 21:28:03,326] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: 
+  
+[2017-11-22 21:28:03,335] Replica.Replica<Replica:d6c02#ReplicaNode1>:OUTPUT: ---------donerep1 replica   1  to terminate
+[2017-11-22 21:28:05,414] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: 
+
+
+
+
+[2017-11-22 21:28:05,414] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: --------REPLICA    IS    STARTED -------
+[2017-11-22 21:28:05,418] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: received replica keys
+[2017-11-22 21:28:05,420] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: replica receive setup  starting for confignum 1
+[2017-11-22 21:28:05,420] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: received failuretriggers :  {}
+[2017-11-22 21:28:08,325] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: Shuttle : Inside replica 1  from Client 2  Signed Operation Stmt from previous Replicas is  b"\xec\x0c\xca0\xe9\nd\x0f\xd3\x95\xfb\xab\x03\x92 R\xc4\x1b\xf2\x8f\xea\x9di\xba\x0eN\x00\xcc\xae\xfc!\xad\xfa%i\xabI\xc2\xcb\x89=\xe3uioHd\xbf\xd0\xea\xc8+\x99\xa0\xf8\x05\xced>\xc3\x8a\r\xc1\x021?get('movie3\xe2\x80\x99)" Signed Order Proofs are : [{'repind': 0, 'signedorderstmt': b"\xec\x0c\xca0\xe9\nd\x0f\xd3\x95\xfb\xab\x03\x92 R\xc4\x1b\xf2\x8f\xea\x9di\xba\x0eN\x00\xcc\xae\xfc!\xad\xfa%i\xabI\xc2\xcb\x89=\xe3uioHd\xbf\xd0\xea\xc8+\x99\xa0\xf8\x05\xced>\xc3\x8a\r\xc1\x021?get('movie3\xe2\x80\x99)"}] Signed Result Proofs are : [b"A\x17\xbd\xc0\x10\xd87F4\xc3\x8bO\xec\xa3\x9ft\x11\xf2\xa9\x10\x9e\xcc\xc6\xc9[\xd9\xc0Z\xf5d\xb7\xab\xffJF\xff\xf6\xb9\xbb\x8dU\xc2u\xf4\xef~I\xbfEr\xa2\xb8\xa3\xabG\xf66(M\xef\x8d4\xf9\x0b?b'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'"]
+[2017-11-22 21:28:08,325] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT:  client 2   message no  0
+[2017-11-22 21:28:08,326] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: Shuttle : Verfied Operation is  get('movie3’)
+[2017-11-22 21:28:08,326] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: Shuttle : Slot is  1 confignum =  1
+[2017-11-22 21:28:08,326] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: Previous Replicas OrderStmt Validation successful: OrderStmt is  1?get('movie3’)
+[2017-11-22 21:28:08,327] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: Signed orderstmt are appended to orderproof and history
+[2017-11-22 21:28:08,327] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: OPTDICT is  {}
+[2017-11-22 21:28:08,327] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: get  
+[2017-11-22 21:28:08,327] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT:  Result is   
+[2017-11-22 21:28:08,328] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: shuttle inside transmitshuttle() : resultstmt is  ?b'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'   signedresultstmt is  b"b]\xa3\xb4\xed\xd2\xa6x\xba=\xe8M\x01x\xf7\xb4\x13\x14\x82\xb6\x8d\x89\xeaj.j[\xbe:i6\xa0\xf9\x82\xa4\xc5=Jk\x9f9\xd0Q\x83\xb1w\x1d\xd4e\xaf\x9cLoS\x15\x15U+\x8e\xedl\x19;\x0f?b'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'"
+[2017-11-22 21:28:08,329] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: 
+ 
+ 
+[2017-11-22 21:28:08,332] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: Shuttle : Inside replica 1  from Client 0  Signed Operation Stmt from previous Replicas is  b"\n\x14\xf1\x02\xa4\xf5y\xe1\x1dU\xf1\xb9\xa8\xf3'\n.n\x8e\x9a_x\xdb\xa8M\x16GY\x83\x98@J\x1b\xb8\xe5\xe7\x9b\xbc\x0f\xe2xgZ\x07\xe1\x8e\xa1\x02E\x10\xefp\x9a\xacQjO^I\xda\x8e~\xa6\n2?get('movie')" Signed Order Proofs are : [{'repind': 0, 'signedorderstmt': b"\n\x14\xf1\x02\xa4\xf5y\xe1\x1dU\xf1\xb9\xa8\xf3'\n.n\x8e\x9a_x\xdb\xa8M\x16GY\x83\x98@J\x1b\xb8\xe5\xe7\x9b\xbc\x0f\xe2xgZ\x07\xe1\x8e\xa1\x02E\x10\xefp\x9a\xacQjO^I\xda\x8e~\xa6\n2?get('movie')"}] Signed Result Proofs are : [b"A\x17\xbd\xc0\x10\xd87F4\xc3\x8bO\xec\xa3\x9ft\x11\xf2\xa9\x10\x9e\xcc\xc6\xc9[\xd9\xc0Z\xf5d\xb7\xab\xffJF\xff\xf6\xb9\xbb\x8dU\xc2u\xf4\xef~I\xbfEr\xa2\xb8\xa3\xabG\xf66(M\xef\x8d4\xf9\x0b?b'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'"]
+[2017-11-22 21:28:08,332] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT:  client 0   message no  0
+[2017-11-22 21:28:08,333] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: Shuttle : Verfied Operation is  get('movie')
+[2017-11-22 21:28:08,333] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: Shuttle : Slot is  2 confignum =  1
+[2017-11-22 21:28:08,334] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: Previous Replicas OrderStmt Validation successful: OrderStmt is  2?get('movie')
+[2017-11-22 21:28:08,334] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: Signed orderstmt are appended to orderproof and history
+[2017-11-22 21:28:08,334] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: OPTDICT is  {}
+[2017-11-22 21:28:08,334] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: get  
+[2017-11-22 21:28:08,334] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT:  Result is   
+[2017-11-22 21:28:08,335] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: shuttle inside transmitshuttle() : resultstmt is  ?b'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'   signedresultstmt is  b"b]\xa3\xb4\xed\xd2\xa6x\xba=\xe8M\x01x\xf7\xb4\x13\x14\x82\xb6\x8d\x89\xeaj.j[\xbe:i6\xa0\xf9\x82\xa4\xc5=Jk\x9f9\xd0Q\x83\xb1w\x1d\xd4e\xaf\x9cLoS\x15\x15U+\x8e\xedl\x19;\x0f?b'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'"
+[2017-11-22 21:28:08,335] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: 
+ 
+ 
+[2017-11-22 21:28:08,338] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: ResultShuttle :  inside result shuttle Client Id is  2  Result is    Unique Id for caching Result Shuttle : Client24  Result Proof  [b"A\x17\xbd\xc0\x10\xd87F4\xc3\x8bO\xec\xa3\x9ft\x11\xf2\xa9\x10\x9e\xcc\xc6\xc9[\xd9\xc0Z\xf5d\xb7\xab\xffJF\xff\xf6\xb9\xbb\x8dU\xc2u\xf4\xef~I\xbfEr\xa2\xb8\xa3\xabG\xf66(M\xef\x8d4\xf9\x0b?b'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'", b"b]\xa3\xb4\xed\xd2\xa6x\xba=\xe8M\x01x\xf7\xb4\x13\x14\x82\xb6\x8d\x89\xeaj.j[\xbe:i6\xa0\xf9\x82\xa4\xc5=Jk\x9f9\xd0Q\x83\xb1w\x1d\xd4e\xaf\x9cLoS\x15\x15U+\x8e\xedl\x19;\x0f?b'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'", b"V\x97\xd7I^Z n\x94\xee\x7f\x01\xe2R\xf4\x8a\x95\xeb\x89\x15\x1b\xbd\xa6\xb5\xa4\x18\x0b\x85\xe5\x1b\x07\x0fc\xcbSv\xc3N\xd3\xba\xf5\xd0\xe1\xd3z\xfa\xfd\x1a\\\t^\x96:\xcd\xcb\xbc\xe9\xbe\x96\xdfK\xae\x9c\x05?b'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'"]
+[2017-11-22 21:28:08,338] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT:  message no  0
+[2017-11-22 21:28:08,340] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: Caching of result and resultproofs in clientidmap ( which stores the result ,resultproof at unique Id  Client24
+[2017-11-22 21:28:08,343] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: 
+  
+[2017-11-22 21:28:08,348] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: ResultShuttle :  inside result shuttle Client Id is  0  Result is    Unique Id for caching Result Shuttle : Client04  Result Proof  [b"A\x17\xbd\xc0\x10\xd87F4\xc3\x8bO\xec\xa3\x9ft\x11\xf2\xa9\x10\x9e\xcc\xc6\xc9[\xd9\xc0Z\xf5d\xb7\xab\xffJF\xff\xf6\xb9\xbb\x8dU\xc2u\xf4\xef~I\xbfEr\xa2\xb8\xa3\xabG\xf66(M\xef\x8d4\xf9\x0b?b'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'", b"b]\xa3\xb4\xed\xd2\xa6x\xba=\xe8M\x01x\xf7\xb4\x13\x14\x82\xb6\x8d\x89\xeaj.j[\xbe:i6\xa0\xf9\x82\xa4\xc5=Jk\x9f9\xd0Q\x83\xb1w\x1d\xd4e\xaf\x9cLoS\x15\x15U+\x8e\xedl\x19;\x0f?b'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'", b"V\x97\xd7I^Z n\x94\xee\x7f\x01\xe2R\xf4\x8a\x95\xeb\x89\x15\x1b\xbd\xa6\xb5\xa4\x18\x0b\x85\xe5\x1b\x07\x0fc\xcbSv\xc3N\xd3\xba\xf5\xd0\xe1\xd3z\xfa\xfd\x1a\\\t^\x96:\xcd\xcb\xbc\xe9\xbe\x96\xdfK\xae\x9c\x05?b'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'"]
+[2017-11-22 21:28:08,348] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT:  message no  0
+[2017-11-22 21:28:08,349] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: Caching of result and resultproofs in clientidmap ( which stores the result ,resultproof at unique Id  Client04
+[2017-11-22 21:28:08,350] Replica.Replica<Replica:d6c03#ReplicaNode1>:OUTPUT: 
+  
+[2017-11-22 21:29:49,765] da.api<MainProcess>:WARNING: Received keyboard interrupt. 

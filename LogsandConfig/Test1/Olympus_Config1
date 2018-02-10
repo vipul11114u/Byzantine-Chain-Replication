@@ -1,0 +1,76 @@
+[2017-11-22 20:11:52,016] Olympus.Node_<Node_:OlympusNode>:OUTPUT: len is  1
+[2017-11-22 20:11:52,017] Olympus.Node_<Node_:OlympusNode>:OUTPUT: fail for replica  1  for config  0  is  [[1, 1, 2, 0, -2]]
+[2017-11-22 20:11:52,017] Olympus.Node_<Node_:OlympusNode>:OUTPUT: MAIN done
+[2017-11-22 20:11:52,051] Olympus.Node_<Node_:OlympusNode>:OUTPUT: ClientNode0
+[2017-11-22 20:11:59,593] Olympus.Node_<Node_:OlympusNode>:OUTPUT: ClientNode1
+[2017-11-22 20:12:07,064] Olympus.Node_<Node_:OlympusNode>:OUTPUT: ClientNode2
+[2017-11-22 20:12:18,190] Olympus.Node_<Node_:OlympusNode>:OUTPUT: ReplicaNode0
+[2017-11-22 20:12:29,046] Olympus.Node_<Node_:OlympusNode>:OUTPUT: ReplicaNode1
+[2017-11-22 20:12:36,153] Olympus.Node_<Node_:OlympusNode>:OUTPUT: ReplicaNode2
+[2017-11-22 20:12:43,156] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: key generation started
+[2017-11-22 20:12:43,156] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: starting replica testing
+[2017-11-22 20:12:43,161] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: send clientkeys
+[2017-11-22 20:12:43,163] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: send clientkeys
+[2017-11-22 20:12:43,164] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: send clientkeys
+[2017-11-22 20:12:43,165] Olympus.Node_<Node_:OlympusNode>:OUTPUT: going to replica for index 1 is  [[1, 1, 2, 0, -2]]
+[2017-11-22 20:12:43,166] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: key generation ended
+[2017-11-22 20:12:43,719] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: reconfigrqt from Replica  2
+[2017-11-22 20:12:43,719] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: olympus_signed_wedgerequest  b"-\t\xb5\xf0\xe8\x93\x9b\x19\xe9\xa1#p\xf5\x03\x17\xa2\x14\x1f\x7f\x06\x82S\xd9\x0f\xbfS\x0e\xf49I|\xc5\xdf\x19\xcf\xf7\xaa2\xf1%*\xee\x10\xbe\xf7\x95\x0bX\xd1\xc2\x96\x17^'a&\n\xb9\xdd\xd00=\x97\x01wedge_request"
+[2017-11-22 20:12:43,727] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: reconfigrqt from Client  1
+[2017-11-22 20:12:43,728] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: ignoring reconfigrqt from Client  1 since reconfig is already in process
+[2017-11-22 20:12:43,728] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: wedgeStatement from Replica  2
+[2017-11-22 20:12:43,729] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: wedgeStatement from Replica  2  receivedReplicaCount =  1  and Rc grows:  [2]
+[2017-11-22 20:12:43,729] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: hist_for_replica 2  =  {}
+[2017-11-22 20:12:43,730] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: chkptProof_for_replica[r_index] =  [b"\x80(\xafC\x7fo\x0cy\x1a\xd0\xf88c+\x96\xe5\xd0\xaf\x0f+\xfa\x8e\xdc\xc1\xf1\x12\xa9G\xddN$/6\xdb\to\xb1\xbcRW\xed0\x86\xfd\xd2\xeb{\xd8\xd9\x8d6\xc5T\xb1\xe7\x7f\xd4Mz\xbe&\x04\xae\x06b'82abc5b54d8ccfc593046b2a42eb3deaee280d016014e13d9650784095ec4c9c'", b"k?\xc8\xd9\xcb\x7f'\xb0\xe4\xcbP!%|<=\x1f\xac!\xe1\x83n+\x1bi\x0f\x1az~\ri1\x04\xb7\xff\xf0\xc9T\xb3\x8a*Hq,\xbb\x82N\xa5\xbb\xf7\x8c\x13\x19\xebU\xc8|P\x8cj!\xddL\x03b'82abc5b54d8ccfc593046b2a42eb3deaee280d016014e13d9650784095ec4c9c'", b"E\xba\xa5\x15,s\xb3#\x0c \xadi\xd9\xa2U\xf6-;\xa9h\xe5\x97\x0b\xd0\x00\xfd\xd7\xbc\x97\xb2\xb1f\xc8\x13\x91\x8bu\xe0\xe8\x17[\xf3a\xfc\xc5\xf5\x91\xb3\xc1C\xb1\xe2\xb0\xb5\xe1\xe3\x08y\xf3\x10\x8a-\xeb\x0eb'5498dbe471391e419e1b27aa7ce4a0ca18a9c9d19fb837e321869899dd5b7207'"]
+[2017-11-22 20:12:43,730] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: receivedReplicaCount is  1  keepSearchingQuorum is 0
+[2017-11-22 20:12:43,730] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: wedgeStatement from Replica  0
+[2017-11-22 20:12:43,730] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: wedgeStatement from Replica  0  receivedReplicaCount =  2  and Rc grows:  [2, 0]
+[2017-11-22 20:12:43,731] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: hist_for_replica 0  =  {1: "put('movie','star’)", 2: "put('jedi,'luke skywalker)", 3: "put('movie3’,’star3’)", 4: "append('movie',' wars')", 5: "slice('jedi','0:4')", 6: "append('movie3’,’ wars3’)", 7: "get('movie')"}
+[2017-11-22 20:12:43,731] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: chkptProof_for_replica[r_index] =  []
+[2017-11-22 20:12:43,731] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: receivedReplicaCount is  2  keepSearchingQuorum is 0
+[2017-11-22 20:12:43,731] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: v33333333 with find_t  1  receivedReplicaCount =  2
+[2017-11-22 20:12:43,731] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: (2, 0)
+[2017-11-22 20:12:43,732] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: combination returned (2, 0)
+[2017-11-22 20:12:43,732] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: t+1 replicas have sent wedgeStatement. Random_quorum :  [2, 0]
+[2017-11-22 20:12:43,732] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: checkAcceptableQuorum
+[2017-11-22 20:12:43,732] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: replica_ind is  2
+[2017-11-22 20:12:43,732] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: replica_ind is  0
+[2017-11-22 20:12:43,732] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: checkAcceptableQuorum returning True for random_quorum :  [2, 0]
+[2017-11-22 20:12:43,733] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: Acceptable quorum with t+1 replicas :  [2, 0]
+[2017-11-22 20:12:43,733] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: computeLH
+[2017-11-22 20:12:43,733] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: inside for with replica index  2
+[2017-11-22 20:12:43,733] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: inside for with replica index  0
+[2017-11-22 20:12:43,734] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: largest_history_replica_index changed to  0
+[2017-11-22 20:12:43,734] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: computeLH. Largest replica is  0  with length  7  and LH =  {1: "put('movie','star’)", 2: "put('jedi,'luke skywalker)", 3: "put('movie3’,’star3’)", 4: "append('movie',' wars')", 5: "slice('jedi','0:4')", 6: "append('movie3’,’ wars3’)", 7: "get('movie')"}
+[2017-11-22 20:12:43,734] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: For replica  2  : History was  {}  deficit is  {1: "put('movie','star’)", 2: "put('jedi,'luke skywalker)", 3: "put('movie3’,’star3’)", 4: "append('movie',' wars')", 5: "slice('jedi','0:4')", 6: "append('movie3’,’ wars3’)", 7: "get('movie')"}
+[2017-11-22 20:12:43,735] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: For replica  0  : History was  {1: "put('movie','star’)", 2: "put('jedi,'luke skywalker)", 3: "put('movie3’,’star3’)", 4: "append('movie',' wars')", 5: "slice('jedi','0:4')", 6: "append('movie3’,’ wars3’)", 7: "get('movie')"}  deficit is  {}
+[2017-11-22 20:12:43,737] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: wedgeStatement from Replica  1
+[2017-11-22 20:12:43,737] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: wedgeStatement from Replica  1  receivedReplicaCount =  3  and Rc grows:  [2, 0, 1]
+[2017-11-22 20:12:43,738] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: hist_for_replica 1  =  {1: "put('movie','star’)", 2: "put('jedi,'luke skywalker)", 3: "put('movie3’,’star3’)", 4: "append('movie',' wars')", 5: "slice('jedi','0:4')", 6: "append('movie3’,’ wars3’)", 7: "get('movie')"}
+[2017-11-22 20:12:43,738] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: chkptProof_for_replica[r_index] =  []
+[2017-11-22 20:12:43,738] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: receivedReplicaCount is  3  keepSearchingQuorum is 1
+[2017-11-22 20:12:43,739] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: for replica  0 clientresultstmt is  ['star’ wars', 'OK', 'OK']  lastsuccessfulopno is  [3, 2, 2]
+[2017-11-22 20:12:43,740] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: chlist length =  1  find_t+1 =  2  faulty_replica_quorum =  0
+[2017-11-22 20:12:43,741] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: for replica  2 clientresultstmt is  ['OK', 'star’ wars', 'OK']  lastsuccessfulopno is  [2, 9, 1]
+[2017-11-22 20:12:43,742] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: chlist length =  2  find_t+1 =  2  faulty_replica_quorum =  0
+[2017-11-22 20:12:43,742] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: All t+1 replicas have caughtup. CHash list length =  2  CHash list of state received  [b'33030370183f3226fe765c94b18c97c80f3707984947a1f8a5f9bf1201ce445d', b'33030370183f3226fe765c94b18c97c80f3707984947a1f8a5f9bf1201ce445d']
+[2017-11-22 20:12:43,743] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: sending get_running_state to replica  2
+[2017-11-22 20:12:43,745] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: inside init history:------ STARTING THE NEW CONFIGURATION--------Config No  1
+[2017-11-22 20:12:45,748] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: Starting New ReplicaNode0
+[2017-11-22 20:12:45,774] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: Starting New ReplicaNode1
+[2017-11-22 20:12:45,798] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: Starting New ReplicaNode2
+[2017-11-22 20:12:45,824] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: send clientkeys
+[2017-11-22 20:12:45,824] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: send clientkeys
+[2017-11-22 20:12:45,825] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: send clientkeys
+[2017-11-22 20:12:45,828] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: intiHist  ended 
+[2017-11-22 20:12:45,828] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: send clientlastexecutedrequest for every client
+[2017-11-22 20:12:45,829] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: Inside Olympus to check if the configuration has been changed
+[2017-11-22 20:12:45,830] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: Inside Olympus to check if the configuration has been changed
+[2017-11-22 20:12:45,831] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: Inside Olympus to check if the configuration has been changed
+[2017-11-22 20:12:48,723] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: received done22
+[2017-11-22 20:12:48,725] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: received done22
+[2017-11-22 20:12:48,734] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: received done22
+[2017-11-22 20:12:48,734] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: elapsed time (seconds):  5.577873229980469
+[2017-11-22 20:12:48,738] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: received done22
+[2017-11-22 20:12:48,743] Olympus.Olympus<Olympus:91c02#OlympusNode>:OUTPUT: received done22
+[2017-11-22 20:28:05,144] da.api<MainProcess>:WARNING: Received keyboard interrupt. 

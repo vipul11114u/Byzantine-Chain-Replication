@@ -1,0 +1,177 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fmodern\fcharset0 Courier;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;}
+{\*\expandedcolortbl;;\csgray\c0;\csgray\c100000;}
+\margl1440\margr1440\vieww28300\viewh15200\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs28 \cf0 \
+\
+I have created folders for each test cases each folder in Test Suite contains config.txt and \
+the corresponding log files for example :  Olympus_Config6, Client0_Config6, Client1_Config6, Client2_Config6, Replica0_Config6, Replica1_Config6,Replica2_Config6 \
+for Test 6  it corresponds to serial 6 below.\
+\
+\
+Commands Used to run these files are :\
+\
+python3 -m da --logfilelevel output --logfile --logfilename Olympus_Config6 -n OlympusNode  Olympus.da\
+python3 -m da --logfilelevel output --logfile --logfilename Client0_Config6 -n ClientNode0 -D Olympus.da\
+python3 -m da --logfilelevel output --logfile --logfilename Client1_Config6 -n ClientNode1 -D Olympus.da\
+python3 -m da --logfilelevel output --logfile --logfilename Client2_Config6 -n ClientNode2 -D Olympus.da\
+python3 -m da --logfilelevel output --logfile --logfilename Replica0_Config6 -n ReplicaNode0 -D Olympus.da\
+python3 -m da --logfilelevel output --logfile --logfilename Replica1_Config6 -n ReplicaNode1 -D Olympus.da\
+python3 -m da --logfilelevel output --logfile --logfilename Replica2_Config6 -n ReplicaNode2 -D Olympus.da\
+OR \
+For console output\
+:\
+python3 -m da -n OlympusNode Olympus.da\
+python3 -m da -n ClientNode0 -D Olympus.da\
+python3 -m da -n ClientNode1 -D Olympus.da\
+python3 -m da -n ClientNode2 -D Olympus.da\
+python3 -m da -n ReplicaNode0 -D Olympus.da\
+python3 -m da -n ReplicaNode1 -D Olympus.da\
+\
+python3 -m da -n ReplicaNode2 -D Olympus.da\
+\
+\
+1) failures[0,1] = shuttle(1,1),change_operation()\
+\
+Change operation at the shuttle.\
+Folder :Test1 inside LogsandConfig folder\
+The first scnenario is failure scenario in which  fault is injected at for change_operation at replica 1 client 1 message 1.\
+We have end state  of local dictionary at the client end in logs.\
+This will raise reconfigured request from replica2 and results in reconfiguration and performing remaining operations in new configuration.\
+Logs are very clear for Client to replica communication(Client request),Shuttle, Result Shuttle,Client timeout etc.\
+\
+\
+2)failures[0,1] = shuttle(1,1),crash().  Non-Head Replica crash\
+Folder :Test2 inside LogsandConfig folder\
+\
+This crashes the non-head middle replica i.e replica1\
+\
+It results in Client timeout and then head time out and non-head time out .Reconfig raised by replica because of head time out and non head time out\
+\
+\
+\
+3)failures[0,1] = shuttle(1,1),drop() Non-Head Replica drop\
+\
+Folder :Test3 inside LogsandConfig folder\
+\
+This drops the incoming request at non-head middle replica i.e replica1\
+Holes would be seen and request would not be allowed.\
+It results in Client timeout and then head time out and non-head time out .Reconfig raised by replica because of head time out and non head time out\
+\
+\
+\
+4) failures[0,1] = shuttle(1,1),sleep(10000) Non-Head Replica Sleep \
+\
+If sleep time is more than (client + head) timeouts or greater than (client + non-head) timeouts.Reconfig raised by replica because of head time out and non head time out.\
+\
+Folder :Test4 inside LogsandConfig folder\
+\
+This drops the incoming request at non-head middle replica i.e replica1\
+Holes would be seen and would not be allowed.\
+It results in Client timeout and then head time out and non-head time out .Reconfig raised by replica because of head time out and non head time out\
+\
+\
+\
+5) failures[0,1] = shuttle(1,1),invalid_order_sig()\
+Folder :Test5 inside LogsandConfig folder\
+\
+Invalid signature in order stmt next outgoing shuttle message. Replica 2 detects it and sends reconfigured request.\
+\
+\
+6) failures[0,1] = shuttle(1,1),invalid_result_sig()\
+Folder :Test6 inside LogsandConfig folder\
+\
+Invalid signature in result stmt in next outgoing shuttle message. Client 1 detects it and sends reconfigured request.\
+Also it is detected in result shuttle.\
+\
+\
+\
+7) failures[0,2] = shuttle(1,1),invalid_result_sig()\
+Folder :Test6 inside LogsandConfig folder\
+\
+Invalid signature in result stmt in next outgoing shuttle message. Client 1 detects it and sends reconfigured request.\
+Also it is detected in result shuttle.\
+\
+\
+8) failures[0,0] = client_request(1,1), crash() Head crashes\
+Folder :Test8 inside LogsandConfig folder\
+Time-Out by On Head Replica. Re-Config is raised.\
+\
+\
+\
+\
+9) failures[0,0] = client_request(1,1), increment_slot()\
+Folder :Test9 inside LogsandConfig folder\
+\
+Slot is incremented at head which results on holes in further requests\
+Reconfig would be raised after timeout from head and non head.\
+\
+\
+10)failures[0,1] = completed_checkpoint(0),drop_checkpt_stmts()\
+Folder :Test10 inside LogsandConfig folder\
+\
+At checkpoint interval t+1 checkpoints are dropped in tail to head completed checkpoint shuttle\
+Since signatures are verified in previous replicas, it will throw exeption.\
+Reconfig is raised by previous replica because signature validation fails.\
+\
+11) failures[0,2] = checkpoint(0),drop_checkpt_stmts()\
+Folder :Test11 inside LogsandConfig folder\
+\
+At checkpoint interval t+1 checkpoints are dropped at tail reconfig request is raised by previous replica i.e tail-1\
+\
+\
+\
+12) failures[0,1] = shuttle(0,1),extra_op()\
+Folder :Test12 inside LogsandConfig folder\
+\
+When extra_op is applied to running state then then it will fail in checkpoint consistency failure and raise reconfigured request.\
+\
+\
+14)perform900 test case :\
+Folder :Test14 inside LogsandConfig folder\
+It ran really well completing all 900 slots with time 8.1 secs without writing in file and raft with 5.7 secs. With writing in file it is 
+\f1\fs22 \cf2 \cb3 \CocoaLigature0 12.1 secs
+\f0\fs28 \cf0 \cb1 \CocoaLigature1 \
+\
+15) failures[0,1] = shuttle(0,0),change_operation()\
+failures[1,1] = shuttle(0,0),change_operation()\
+\
+Reconfig happens two times. We have not provided logs but it tested.\
+
+\f1\fs22 \cf2 \cb3 \CocoaLigature0 \
+\
+\
+
+\f0\fs28 \cf0 \cb1 \CocoaLigature1 \
+\
+We have end state  of local dictionary at the client end in logs\
+The results are as expected.\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+}

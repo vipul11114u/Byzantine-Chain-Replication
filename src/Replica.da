@@ -1,0 +1,1839 @@
+import nacl.encoding
+import nacl.signing
+import time
+import nacl.hash
+import random
+
+import logging
+import os
+import time
+import sys
+
+HASHER = nacl.hash.sha256
+
+
+#clientm = import_da('Client')
+#replicam = import_da('Replica')
+class Replica(process):
+	def setup():
+		self.replicas = None
+		self.nreplica = None
+		self.r_index = None
+		self.c_index = None
+		self.clients = None
+		self.olympus = None
+
+		self.rhead = None
+		self.rtail = None
+		self.nextreplica = None
+		self.prevreplica = None
+		self.slot = 0
+		self.prevheadslot = 0
+		self.operation = None
+		
+		self.orderstmt = None
+		self.signedorderstmt = None
+		self.checkpointinterval = None
+		self.checkpointedslot = 0
+		self.signedproofsatslot = dict()
+		#self.signedorderproofs =[]
+
+		self.result = None
+		self.hashresult = None
+		#self.signedresultproofs = []
+		self.signedresultatslot = dict()
+
+		self.signedcheckpointproofsatslot = dict()
+		self.signedcheckpointproof = []
+		self.signedcompletedcheckpointproofs = []
+		#self.ischeckpointed = 0
+
+		self.completeresultproofs = []
+
+		self.cancelheadtimer  = 0
+		self.cancelnonheadtimer = 0
+		#self.orderstmt = {'slot':'', 'operation':''}
+		self.orderproof = {'repind':'','signedorderstmt':''}
+		self.history = dict()
+		self.althistory = dict()
+		self.opdict = dict()
+		
+		self.clientidmap = dict()
+		
+		self.operationreceived = dict()
+
+		self.replicaprivatekey = None
+		self.replicapublicverifykeys = []
+		self.clientpublicverifykeys = []	
+
+		self.headtimeout = 1000
+		self.nonheadtimeout = 1000
+
+		#These give   count of different shuttles as described in project.txt
+		self.clientrequestno = dict()
+		self.shuttlerequestno = dict()
+		self.resultshuttlerequestno = dict()
+		self.completedchkptrequestno = -1
+		self.chkptrequestno = -1
+
+		self.failuretriggers = list()
+		self.fail_list_dic = dict()
+		self.clientrequesttrigger= list()
+		self.shuttletrigger= list()
+		self.resultshuttletrigger = list()
+		self.forwardedrequesttrigger = list()
+		self.wedgerequesttrigger = list()
+		self.newconfigurationtrigger = list()
+		self.checkpointtrigger = list()
+		self.completedcheckpointtrigger = list()
+		self.getrunningstatetrigger = list()
+		self.catchuptrigger = list()
+
+
+		self.changeoperation  = 0 
+		self.changeresult  = 0
+		self.dropresultstmt = 0 
+		self.crash = 0 
+		self.truncate_history = 0 
+		self.sleep = 0 
+		self.drop = 0 
+		self.increment_slot = 0 
+		self.extra_op = 0 
+		self.invalid_order_sig = 0 
+		self.invalid_result_sig = 0 
+		self.drop_checkpt_stmts = 0				
+		
+		self.wedgeRequestno = 0 #First wedgeRqst is with wedgeRequestno of 0
+		self.get_running_state_count = 0 #First get_running_state starts at 0. 
+		self.catchup_count = 0 #First catchup_count starts at 0.
+
+		self.rmode = "ACTIVE"
+
+		self.clientresultstmt = []
+		self.lastsuccessfulopno = []
+
+		self.confignum = 0
+		#self.globalconfigolympus1 = -1
+		#output("replica setup end reached")
+	def setuphelper():
+		fail_list = failuretriggers
+		#output("vipul",fail_list)
+		#fail_list_dic = dict()
+		'''
+		output("fail_list",failuretriggers)
+		for item in fail_list:
+			output(item)
+			trig_dic = dict()
+			trig = item[2]
+			del item[2]
+			trig_dic[trig] = item
+			output("trig_dic[trig]",trig_dic[trig])
+			fail_list_dic.update(trig_dic)
+			output("fail_list_dic",fail_list_dic)
+		# for parsing 
+		for keys in fail_list_dic.keys():
+			if(keys==1):
+				output("yelo",fail_list_dic[keys])
+		'''
+
+		fail_list_dic = dict()
+		myarr = list()
+		arr_for0 = list()
+		arr_for1 = list()
+		arr_for2 = list()
+		arr_for3 = list()
+		arr_for4 = list()
+		arr_for5 = list()
+		arr_for6 = list()
+		arr_for7 = list()
+		arr_for8 = list()
+		arr_for9 = list()
+		count_0 = 0
+		count_1 = 0
+		count_2 = 0
+
+
+		for item in fail_list:
+			#output(item)
+			trig_dic = dict()
+			trig = item[2]
+			del item[2]
+			trig_dic[trig] = item
+			#output("trig_dic[trig]",trig_dic[trig])
+			if(trig == 0):				
+				arr_for0.extend(item)
+				count_0+=1
+			if(trig == 1):
+				arr_for1.extend(item)		
+			if(trig == 2):
+				arr_for2.extend(item)
+			if(trig == 3):
+				arr_for3.extend(item)
+			if(trig == 4):
+				arr_for4.extend(item)
+			if(trig == 5):
+				arr_for5.extend(item)
+			if(trig == 6):
+				arr_for6.extend(item)
+			if(trig == 7):
+				arr_for7.extend(item)
+			if(trig == 8):
+				arr_for8.extend(item)
+			if(trig == 9):
+				arr_for9.extend(item)
+			
+			#output("arr_for0",arr_for0)
+			#output("arr_for1",arr_for1)
+			#output("arr_for2",arr_for2)
+			
+			list_for0 = [arr_for0[x:x+4] for x in range(0, len(arr_for0), 4)]
+			#output("chunks",list_for0)
+			list_for1 = [arr_for1[x:x+4] for x in range(0, len(arr_for1), 4)]
+			#output("chunks",list_for1)
+			list_for2 = [arr_for2[x:x+4] for x in range(0, len(arr_for2), 4)]
+			#output("chunks",list_for2)
+			list_for3 = [arr_for3[x:x+4] for x in range(0, len(arr_for3), 4)]
+			list_for4 = [arr_for4[x:x+4] for x in range(0, len(arr_for4), 4)]
+			list_for5 = [arr_for5[x:x+4] for x in range(0, len(arr_for5), 4)]
+			list_for6 = [arr_for6[x:x+4] for x in range(0, len(arr_for6), 4)]
+			list_for7 = [arr_for7[x:x+4] for x in range(0, len(arr_for7), 4)]
+			list_for8 = [arr_for8[x:x+4] for x in range(0, len(arr_for8), 4)]
+			list_for9 = [arr_for9[x:x+4] for x in range(0, len(arr_for9), 4)]
+
+			clientrequesttrigger = list_for0
+			forwardedrequesttrigger = list_for1
+			shuttletrigger = list_for2
+			resultshuttletrigger = list_for3
+			wedgerequesttrigger	= list_for4
+			newconfigurationtrigger = list_for5
+			checkpointtrigger = list_for6
+			completedcheckpointtrigger = list_for7
+			getrunningstatetrigger = list_for8
+			catchuptrigger = list_for9
+			
+			output("clientrequesttrigger is ",clientrequesttrigger)
+			output("forwardedrequesttrigger is ",forwardedrequesttrigger)
+			output("shuttletrigger is ",shuttletrigger)
+			output("resultshuttletrigger is ",resultshuttletrigger)			
+			output("wedgerequesttrigger is ",wedgerequesttrigger)
+			output("newconfigurationtrigger is ",newconfigurationtrigger)
+			output("checkpointtrigger is ",checkpointtrigger)
+			output("completedcheckpointtrigger is ",completedcheckpointtrigger)
+			output("getrunningstatetrigger is ",getrunningstatetrigger)
+			output("catchuptrigger is ",catchuptrigger)
+	'''
+	def receive(msg=("testreplica",testind),):
+		output("TESTING DUMMY REPLICA  is ",testind)
+	'''
+	def receive(msg=("setupreplica",replicasparam,nreplicaparam,r_indexparam,clientsparam,olympusparam,headtimeoutparam,nonheadtimeoutparam,failuretriggersparam,runningStateparam,checkpointintervalparam,confignumparam), ):
+		output("replica receive setup  starting for confignum",confignumparam)
+
+		confignum = confignumparam
+
+		replicas = replicasparam
+		nreplica = nreplicaparam
+		r_index = r_indexparam
+		clients = clientsparam
+		olympus = olympusparam
+		headtimeout = headtimeoutparam
+		nonheadtimeout = nonheadtimeoutparam
+		failuretriggers = failuretriggersparam
+		output("received failuretriggers : ",failuretriggers)
+		#checkpointinterval = 5
+		
+		opdict = runningStateparam
+
+
+		
+		checkpointinterval = checkpointintervalparam
+		setuphelper()
+		'''
+		clientrequesttrigger= list_for0
+		shuttletrigger= fail_list_dic[1]
+		resultshuttletrigger = fail_list_dic[2]
+		'''
+		#output("After helper. 11111111")
+		rhead = replicas[0]
+		rtail = replicas[nreplica-1]
+		r_index = r_indexparam
+		
+		if r_index != nreplica-1: 
+			nextreplica = replicas[r_index + 1]
+
+		else:
+			nextreplica = None
+		
+		if r_index != 0: 
+			prevreplica = replicas[r_index - 1]
+
+		else:
+			prevreplica = None
+
+		self.rmode = "ACTIVE"
+
+		
+		clientresultstmt = [None] * len(clientsparam)
+		lastsuccessfulopno = [0] * len(clientsparam)
+
+		wedgeRequestno = 0 
+		get_running_state_count = 0 
+		catchup_count = 0 
+
+		#VipulTrigger
+		clearfailures()
+		rcvdfaillist = checknewconfigurationtrigger(-1,0)
+
+		for i in range(0,len(rcvdfaillist),2):
+			#output("i is ",i)
+			rcvdfail = rcvdfaillist[i]		
+			if rcvdfail == 0:
+				output("changeoperation")
+			if rcvdfail == 1:
+				output("changeresult")
+			if rcvdfail == 2:
+				output("dropresultstmt")
+			if rcvdfail == 3:
+				output("CRASH")
+				logging.shutdown()
+				os._exit(-1)
+			if rcvdfail == 4:
+				output("truncate_history")
+				trunc_n = rcvdfaillist[i+1]
+				#output("trunc_n ",trunc_n)
+				getmax = max(history)
+			if rcvdfail == 5:
+				output("sleep")
+				sleep_timer = rcvdfaillist[i+1]
+				output("sleep_timer ",sleep_timer)
+				time.sleep (sleep_timer/ 1000.0)
+			if rcvdfail == 6:
+				output("BUT dropping it")				
+				#return
+			if rcvdfail == 7:
+				output("increment_slot")
+			if rcvdfail == 8:
+				output("extra_op")
+				operation = "put('a','a')"				
+				applyoperationondict()
+				output(" OPTDICT is ",opdict)
+			if rcvdfail == 9:
+				output("invalid_order_sig")
+			if rcvdfail == 10:
+				output("invalid_result_sig")
+			if rcvdfail == 11:
+				output("drop_checkpt_stmts")
+		rcvdfaillist.clear()
+
+
+
+		#output("After helper. 2222222")
+		#self.signedorderproofs =[];
+
+
+		#self.orderstmt = {'slot':'', 'operation':''}
+		#self.orderproof={'repind':'','orderstmt':'','signedorderstmt':''}
+		#self.history = dict()
+		
+		'''
+		if r_index == nreplica-1:
+			#Must show log for Final output at replica end			
+			self.rnext = None			
+		else:
+			self.rnext = replicas[r_index+1]
+		'''
+
+		#self.opdict = dict()
+		#output("replica ",r_index," setup successful")
+
+	def receive(msg=("replicakeys",replicaprivatekeyparam,replicapublicverifykeysparam,clientpublicverifykeysparam),from_=Olympus ):
+		output("received replica keys")
+		replicaprivatekey = replicaprivatekeyparam
+		replicapublicverifykeys = replicapublicverifykeysparam
+		clientpublicverifykeys = clientpublicverifykeysparam
+
+	def receive(msg=("donerep1",),from_=Olympus ):
+		output("---------donerep1 replica  ",r_index," to terminate")
+		logging.shutdown()
+		os._exit(-1)
+
+		#sys.exit(0)
+		
+
+
+	def run():
+		output("\n\n\n\n")
+		output("--------REPLICA    IS    STARTED -------")	
+		#await(some(received(("canceltimers",), from_=p)))
+		cancelheadtimer = 1	
+		cancelnonheadtimer = 1	
+		#time.sleep (500.0 / 1000.0)
+		await(some(received(("donerep",), from_=p)))
+		output("run finished of replica ",r_index)
+		logging.shutdown()
+		os._exit(-1)
+		output("after os exit after run ")
+
+	def applyoperationondict():
+
+		output("OPTDICT is ",opdict)
+		operation = operation.strip()			
+		if operation.startswith("put"):
+			operation = operation.replace("put","")
+			operation = operation.strip("()")
+			list_op = operation.split(",")
+			list_op[0] = list_op[0].strip("\'")
+			list_op[1] = list_op[1].strip("\'")
+			opdict[list_op[0]]=list_op[1]
+			output("opdict " ,opdict[list_op[0]])
+			result = "OK"
+			output("put ",result)
+			#send(("result",result,c_index),to=clients[c_index])
+		elif operation.startswith("get"):				
+			operation = operation.replace("get","")
+			operation = operation.strip("()")
+			list_op = operation.split(",")
+			list_op[0] = list_op[0].strip("\'")								
+			if list_op[0] in opdict:
+				result = opdict[list_op[0]]
+			else:
+				result = ""
+			output("get ",result)
+			#send(("result",result,c_index),to=clients[c_index])
+		elif operation.startswith("slice"):
+			operation = operation.replace("slice","")
+			operation = operation.strip("()")
+			list_op = operation.split(",")
+			list_op[0] = list_op[0].strip("\'")
+			list_op[1] = list_op[1].strip("\'")
+			list_op[1]=list_op[1].strip("/'")
+			(start, sep, end) = list_op[1].partition(':')
+			starti = int(start)
+			endi = int(end)
+			if list_op[0] in opdict:				
+							
+				if (0 <= starti and starti <= len(opdict[list_op[0]])-1) and (1 <= endi and endi <= len(opdict[list_op[0]])):
+					opdict[list_op[0]] = opdict[list_op[0]][int(starti):int(endi)]
+					result = "OK"
+				else:
+					result = "FAIL1"				
+			else:
+				result = "FAIL"
+			output("slice ",result)
+			#output("result ",result,"dict = ",opdict)
+			#send(("result",result,c_index),to=clients[c_index])
+		elif operation.startswith("append"):
+			operation = operation.replace("append","")
+			operation = operation.strip("()")
+			list_op = operation.split(",")
+			list_op[0] = list_op[0].strip("\'")
+			list_op[1] = list_op[1].strip("\'")
+			if list_op[0] in opdict:				
+				opdict[list_op[0]] = opdict[list_op[0]]+list_op[1]				
+				result = "OK"
+			else:
+				result = "FAIL"
+			output("append")	
+		else:
+			output("Wrong operation performed at client - ",operation)
+
+
+		output(" OPTDICT after applying operation is ",opdict)
+
+		#output("yooooooooooooooo2222222",c_index)
+		if c_index != None:
+			clientresultstmt[c_index] = result
+			lastsuccessfulopno[c_index] = lastsuccessfulopno[c_index] + 1
+		'''	
+		elif operation.startswith("pseudorandom"):
+			#delete this elif later
+			operation = operation.replace("pseudorandom","")
+			operation = operation.strip("()")
+			list_op = operation.split(",")
+			list_op[0] = list_op[0].strip("\'")
+			list_op[1] = list_op[1].strip("\'")
+			result="PSEUDO done"	
+		'''		
+		
+
+	def ordercommand():
+		precond1 = True # not necessary
+		precond2 = True
+		#output("ORDER COMMAND1111111")
+		#output("ORDER COMMAND2222222 : inside forrrr slot",slot,"signedproofsatslot ",str(signedproofsatslot))
+		#for item in signedorderproofs:
+		signedorderproof =[]
+		try:
+			if rmode == "ACTIVE":
+				if slot in signedproofsatslot.keys():
+					signedorderproof = signedproofsatslot[slot]
+					for item in signedorderproof:	
+						#output("ORDER COMMAND2222222 : inside forrrr item",item,"signedproofsatslot ",signedproofsatslot[slot])
+						prevorderstmtenc = replicapublicverifykeys[item["repind"]].verify(item["signedorderstmt"])
+						pervorderstmt = prevorderstmtenc.decode()
+						if pervorderstmt != orderstmt:
+							precond1 = None
+
+		except 	nacl.exceptions.BadSignatureError :
+				precond1 == None
+				output(" BadSignatureError : Previous Order Proofs are not signed correctly")
+		'''		
+		if slot in history:
+			if history[slot] != orderstmt["operation"]: 
+				precond2 = None
+		'''
+		
+		if precond1 == None  :
+			output("Send Reconfiguration request to Olympus because of misbehaviour o and o' for single s or replicas not signed correctly having r_index",r_index)
+			send(("reconfigrqtR",r_index),to=olympus)
+		else:
+			#if the precondition are satisfied, then add order stmt to order proofs and append order in history as well
+			
+			output("Previous Replicas OrderStmt Validation successful: OrderStmt is ",orderstmt)
+
+			#Failure injection 
+			if changeoperation == 1 :
+				output("change_operation() failure has been injected at Replica",r_index," Client",c_index," slot ",slot)
+				orderstmt = str(slot)+"?"+ "get('x')"
+
+			
+
+			encorderstmt = str.encode(orderstmt)
+			signedorderstmt = replicaprivatekey.sign(encorderstmt)
+
+			if invalid_order_sig == 1:
+				output("invalid_order_sig() failure has been injected at Replica",r_index," Client",c_index," slot ",slot)
+				signedlist = list(signedorderstmt)
+				signedlist[0] = (signedlist[0] + 1) % 256
+				newsigned=bytes(signedlist)
+				invalid_signed = nacl.signing.SignedMessage._from_parts(signedorderstmt._signature, signedorderstmt._message, newsigned)
+				signedorderstmt = invalid_signed
+
+
+			orderproof["repind"] = r_index
+			orderproof["signedorderstmt"] = signedorderstmt
+			
+			#output("Signed (replica private key) OrderStmt is ",signedorderstmt)
+
+			signedorderproof.append(orderproof)
+			signedproofsatslot[slot] = signedorderproof
+		
+			history[slot] = operation
+			#output("yooooooooooooooo11111111",c_index)
+			'''
+			if ischeckpointed == 0:
+				history[slot] = operation
+
+				if len(althistory.keys())==0:
+					history = althistory
+			
+			else:
+				althistory[slot] = operation
+			'''
+			output("Signed orderstmt are appended to orderproof and history")
+
+	
+
+
+	def transmitshuttle(combinedrqtid,retransmitfg):
+		if extra_op == 1:
+			output("extra_op() failure has been injected at Replica",r_index," from Client",c_index)
+
+			actualop = operation
+
+			operation = "put('a','a')"
+			applyoperationondict()
+
+			operation = actualop
+
+
+		'''
+		if slot % checkpointinterval == 0:
+			chkptrequestno = chkptrequestno + 1
+			output(" message no for checkpointing is ",chkptrequestno)
+		
+			clearfailures()
+		
+			checkcheckpointtrigger(-1,chkptrequestno)
+
+			if extra_op == 1:
+				output("extra_op() failure has been injected at Replica",r_index," from Client",c_index)
+
+
+				actualop = operation
+
+				operation = put('a','a')
+				applyoperationondict()
+
+				operation = actualop
+
+		'''
+
+		ordercommand()
+
+		applyoperationondict()
+
+		output(" Result is  ",result)
+
+		#output("AAAAAAAA",type(result))
+		
+		hashresult =  HASHER(result.encode(), encoder=nacl.encoding.HexEncoder)
+
+		
+		resultstmt = ""+result+"?" + str(hashresult)
+
+		
+
+		encresultstmt = str.encode(resultstmt)
+		signedresultstmt = replicaprivatekey.sign(encresultstmt)
+
+		if invalid_result_sig == 1:
+			output("invalid_result_sig() failure has been injected at Replica",r_index," Client",c_index," slot ",slot)
+			signedlist = list(signedresultstmt)
+			signedlist[0] = (signedlist[0] + 1) % 256
+			newsigned=bytes(signedlist)
+			invalid_signed = nacl.signing.SignedMessage._from_parts(signedresultstmt._signature, signedresultstmt._message, newsigned)
+			signedresultstmt = invalid_signed
+
+
+		if retransmitfg == 0:
+			output("shuttle inside transmitshuttle() : resultstmt is ",resultstmt,"  signedresultstmt is ",signedresultstmt)
+
+		else:
+			output("forward request inside transmitshuttle() : resultstmt is ",resultstmt,"  signedresultstmt is ",signedresultstmt)
+
+		#okhashresult =  HASHER("OK".encode(), encoder=nacl.encoding.HexEncoder)
+		#okresultstmt = ""+okhashresult+"?" + str(okhashresult)
+		
+		if r_index == 0:
+			signedresultproof = []
+			#signedresultproof.append(resultstmt)
+			signedresultproof.append(signedresultstmt)
+			signedresultatslot[slot] = signedresultproof
+
+		else :
+			signedresultproof = signedresultatslot[slot]
+			#signedresultproof.append(resultstmt)
+			signedresultproof.append(signedresultstmt)
+			signedresultatslot[slot] = signedresultproof
+
+
+
+		if slot % checkpointinterval == 0:
+			output("CheckPointing is done at this slot no ",slot)
+			checkpointedslot = slot
+			#ischeckpointed = 1
+			#output("state before checkpointing ",opdict)
+
+			hashstate =  HASHER((str(opdict)).encode(), encoder=nacl.encoding.HexEncoder)
+			
+			enchashstate = str.encode(str(hashstate))
+			signedcheckpoint = replicaprivatekey.sign(enchashstate)
+
+			
+			if slot in signedcheckpointproofsatslot.keys():
+				signedcheckpointproof = signedcheckpointproofsatslot[slot]
+				signedcheckpointproof.append(signedcheckpoint)
+				output(" signed checkpoint is ",signedcheckpoint," replica index is ",r_index)
+				signedcheckpointproofsatslot[slot] = signedcheckpointproof
+
+			else:
+				signedcheckpointproof = []
+				signedcheckpointproof.append(signedcheckpoint)
+				signedcheckpointproofsatslot[slot] = signedcheckpointproof
+
+			
+
+		#output("shuttle inside transmitshuttle() : signedresultatslot[slot] is ",signedresultatslot[slot])
+		#output("Ankur :Orginal Result and ResultProofs sent from Tail :   result sent is ",result,signedresultatslot[slot])
+		'''	
+		if slot in signedresultatslot.keys():
+			signedresultproofs = signedresultatslot[slot]
+			signedresultproofs.append(resultstmt)
+			signedresultatslot[slot] = signedresultproofs
+		'''
+	
+		#output("Ankur :11111")
+		if nextreplica!=None:
+				#send(("shuttle",signedorderstmt,signedorderproofs,c_index),to=nextreplica)
+
+				send(("shuttle",signedorderstmt,signedproofsatslot[slot],signedresultatslot[slot],signedcheckpointproof,c_index,combinedrqtid,retransmitfg),to=nextreplica)
+
+		else:
+
+			if changeresult == 1:
+				#output("Ankur :111222")
+				output("change_result() failure has been injected at Replica",r_index," Client",c_index," slot ",slot)
+				result = "OK"
+				hashresult =  HASHER(result.encode(), encoder=nacl.encoding.HexEncoder)
+				resultstmt = ""+result+"?" + str(hashresult)
+				#output("Ankur :222222")
+				#output("Ankur : signedresultatslot[slot][r_index-1] is ",str(signedresultatslot[slot][r_index-1]))
+				#output("Ankur : Result and ResultProofs sent from Tail :   result sent is ",result,signedresultatslot[slot])
+				encresultstmt = str.encode(resultstmt)
+				signedresultstmt = replicaprivatekey.sign(encresultstmt)
+				signedresultatslot[slot][r_index-1] = signedresultstmt
+
+			if dropresultstmt == 1:
+
+				output("shuttle: drop_resultstmt() failure has been injected at Replica",r_index," Client",c_index," slot ",slot," message no",shuttlerequestno[c_index])
+
+			
+				del signedresultatslot[slot][0] 
+			'''
+			if changeoperation == 1 :
+				#msg = 'get(x)'
+				#output("Ankur :3")
+				result = 'get(x)'
+				#hashresult1 =  HASHER(msg.encode(), encoder=nacl.encoding.HexEncoder)
+				#resultstmt1 = ""+hashresult1+"?" + str(hashresult1)
+				hashresult =  HASHER(result.encode(), encoder=nacl.encoding.HexEncoder)
+
+				resultstmt = ""+result+"?" + str(hashresult)
+
+				#output("Ankur :4")
+				signedresultatslot[slot][r_index-1] = resultstmt
+				#output("Ankur : signedresultatslot[slot][r_index-1] is : ",str(signedresultatslot[slot][r_index-1]))
+				#output("Result and ResultProofs sent from Tail :   result sent is ",result,signedresultatslot[slot])
+			'''
+
+			output(" TAIL Replica is reached . ")
+			
+			
+			output("Result  sent from Tail :   result sent is ",result)
+
+
+			sentsignaltoclient  = 1
+
+			'''
+			if retransmitfg == 1:
+				cancelheadtimer  = 1
+				send(("cancelheadtimer",cancelheadtimer),to=replicas[0])
+
+			'''
+
+
+			'''
+			if c_index == 0 :  #if c_index != 0:   TESTING CLIENT TIMEOUT
+				output("result proof to back client has been cut down")
+			else:
+			'''
+			send(("ResultProofs",result,signedresultatslot[slot],sentsignaltoclient,slot),to=clients[c_index])
+
+			if prevreplica != None :
+				output("result just before sending to previous replica ",result)
+
+				resultproofdict = dict()
+				resultproofdict["result"] = result
+				resultproofdict["signedresultatslot"] = signedresultatslot[slot]
+
+				
+				clientidmap[combinedrqtid] = resultproofdict
+
+				# if c_index != 1:  #if c_index != 0:   TESTING FORWARD SHUTTLE AFTER CLIENT TIMEOUT
+				'''
+				if c_index == 0 :  #if c_index != 0:   TESTING CLIENT TIMEOUT
+					output("result shuttle to head  has been cut down at tail")
+				else:
+				'''
+				
+				send(("resultshuttle",result,signedresultatslot[slot],combinedrqtid,c_index),to=prevreplica)
+
+				if slot % checkpointinterval == 0:
+					output("inside checkpoint forward shuttle")
+					for i in range(checkpointedslot+1):
+						history.pop(i, None)
+					
+
+					signedcompletedcheckpointproofs = signedcheckpointproofsatslot[slot]
+					chkptrequestno = chkptrequestno + 1
+					output(" message no for checkpointing is ",chkptrequestno)
+		
+					clearfailures()
+		
+					checkcheckpointtrigger(-1,chkptrequestno)
+
+					#ischeckpointed = 0
+					#output("at tail signedcheckpointproofsatslot[slot] are ",signedcheckpointproofsatslot[slot])
+
+					
+
+					if drop_checkpt_stmts == 1:
+						output("drop_checkpt_stmts() failure has been injected at Replica",r_index," from Client",c_index)
+						find_t = int((nreplica -1)/2)
+						del signedcompletedcheckpointproofs[:find_t]
+
+					
+
+					#send(("completedcheckpoint",signedcheckpointproofsatslot[slot],slot,c_index),to=prevreplica)
+					send(("completedcheckpoint",signedcompletedcheckpointproofs,slot,c_index),to=prevreplica)
+				#send(("resultshuttle",),to=prevreplica)
+
+	def clearfailures():
+		changeoperation = 0
+		changeresult = 0
+		dropresultstmt = 0
+		crash = 0
+		truncate_history = 0
+		sleep = 0
+		drop = 0
+		increment_slot = 0
+		extra_op = 0
+		invalid_order_sig = 0
+		invalid_result_sig = 0
+		drop_checkpt_stmts = 0
+
+				
+	def checkfailure(failparam):
+		#just setting flag to 1. keep in mind, set back to 0 ?
+		if failparam == 0:
+			changeoperation = 1
+		elif failparam == 1:
+			changeresult = 1
+		elif failparam == 2:
+			dropresultstmt = 1
+		elif failparam == 3:
+			crash = 1
+		elif failparam == 4:
+			truncate_history = 1
+		elif failparam == 5:
+			sleep = 1
+		elif failparam == 6:
+			drop = 1
+		elif failparam == 7:
+			increment_slot = 1
+		elif failparam == 8:
+			extra_op = 1
+		elif failparam == 9:
+			invalid_order_sig = 1
+		elif failparam == 10:
+			invalid_result_sig = 1
+		elif failparam == 11:
+			drop_checkpt_stmts = 1
+
+	def checkclientrequesttrigger(c,m):
+		#output ("inside checkclientrequesttrigger c = ",c,"m =",m)
+		returnlist = list()
+		for trigger in clientrequesttrigger:
+			if c == trigger[0] and m == trigger[1]:
+				output("checkclientrequesttrigger for config = ",c, "and message = ",m)
+				checkfailure(trigger[2])
+				templist = list()
+				templist.append(trigger[2])
+				templist.append(trigger[3])
+				returnlist.extend(templist)
+		return returnlist	
+
+	#c: shuttletrigger[0], m = shuttletrigger[1] , f = shuttletrigger[2]
+	def checkshuttletrigger(c,m):
+		#shuttletrigger
+		returnlist = list()
+		for trigger in shuttletrigger:
+			if c == trigger[0] and m == trigger[1]:
+				output("checkshuttletrigger for config = ",c, "and message = ",m)
+				checkfailure(trigger[2])
+				templist = list()
+				templist.append(trigger[2])
+				templist.append(trigger[3])
+				returnlist.extend(templist)
+		return returnlist			
+
+	def checkresultshuttletrigger(c,m):
+		#shuttletrigger
+		#output ("inside checkresultshuttletrigger c = ",c,"m =",m)
+		returnlist = list()
+		for trigger in resultshuttletrigger:
+			if c == trigger[0] and m == trigger[1]:
+				output("checkresultshuttletrigger for config = ",c, "and message = ",m)
+				checkfailure(trigger[2])
+				templist = list()
+				templist.append(trigger[2])
+				templist.append(trigger[3])
+				returnlist.extend(templist)
+		return returnlist			
+	def	checkforwardedrequesttrigger(c,m):
+		returnlist = list()
+		for trigger in forwardedrequesttrigger:
+			if c == trigger[0] and m == trigger[1]:
+				output("checkforwardedrequesttrigger for config = ",c, "and message = ",m)
+				checkfailure(trigger[2])
+				templist = list()
+				templist.append(trigger[2])
+				templist.append(trigger[3])
+				returnlist.extend(templist)
+		return returnlist		
+	def	checkwedgerequesttrigger(c,m):
+		returnlist = list()
+		for trigger in wedgerequesttrigger:
+			if c == trigger[0] and m == trigger[1]:
+				output("checkwedgerequesttrigger for config = ",c, "and message = ",m)
+				checkfailure(trigger[2])
+				templist = list()
+				templist.append(trigger[2])
+				templist.append(trigger[3])
+				returnlist.extend(templist)
+		return returnlist	
+	def	checknewconfigurationtrigger(c,m):
+		returnlist = list()
+		for trigger in newconfigurationtrigger:
+			if c == trigger[0] and m == trigger[1]:
+				output("Receipt of newconfiguration message")
+				output("checknewconfigurationtrigger for config = ",c, "and message = ",m)
+				checkfailure(trigger[2])
+				templist = list()
+				templist.append(trigger[2])
+				templist.append(trigger[3])
+				returnlist.extend(templist)
+		return returnlist	
+	def	checkcheckpointtrigger(c,m):
+		returnlist = list()
+		for trigger in checkpointtrigger:
+			if c == trigger[0] and m == trigger[1]:
+				output("checkcheckpointtrigger for config = ",c, "and message = ",m)
+				checkfailure(trigger[2])
+				templist = list()
+				templist.append(trigger[2])
+				templist.append(trigger[3])
+				returnlist.extend(templist)
+		return returnlist	
+	def	checkcompletedcheckpointtrigger(c,m):	
+		returnlist = list()
+		for trigger in completedcheckpointtrigger:
+			if c == trigger[0] and m == trigger[1]:
+				output("checkcompletedcheckpointtrigger for config = ",c, "and message = ",m, "with failure ",trigger[2])
+				checkfailure(trigger[2])
+				templist = list()
+				templist.append(trigger[2])
+				templist.append(trigger[3])
+				returnlist.extend(templist)
+		return returnlist	
+	def	checkgetrunningstatetrigger(c,m):
+		returnlist = list()
+		for trigger in getrunningstatetrigger:
+			if c == trigger[0] and m == trigger[1]:
+				output("checkgetrunningstatetrigger for config = ",c, "and message = ",m)
+				checkfailure(trigger[2])
+				templist = list()
+				templist.append(trigger[2])
+				templist.append(trigger[3])
+				returnlist.extend(templist)
+		return returnlist	
+	def	checkcatchuptrigger(c,m):	
+		returnlist = list()	
+		for trigger in catchuptrigger:
+			if c == trigger[0] and m == trigger[1]:
+				output("checkcatchuptrigger for config = ",c, "and message = ",m)
+				checkfailure(trigger[2])
+				templist = list()
+				templist.append(trigger[2])
+				templist.append(trigger[3])
+				returnlist.extend(templist)
+		return returnlist	
+
+	
+	
+	def handleReTransmissionRqttoHead(combinedrqtid,retransmitfg):
+
+		output("INSIDE HEAD  handleReTransmissionRqttoHead FXN")
+
+		if combinedrqtid in clientidmap:
+			#resultproofdict["result"] = resultparam
+			#resultproofdict["signedresultatslot"] = signedresultproofparam
+			output(" Client Request :Cached Result found for the unique (request id + client id).Therefore the result, resultproof will return from here itself.")
+			res = clientidmap[combinedrqtid]["result"]
+			signedresultproof = clientidmap[combinedrqtid]["signedresultatslot"]
+			output("Client Request : Cached Result is ",result," and result proofs are " ,signedresultproof," at Replica Index ",r_index)
+			send(("CachedResultProofs",res,signedresultproof),to=clients[c_index])
+			
+			output("\n \n")
+
+		elif  combinedrqtid in operationreceived.keys():
+
+			output("INSIDE HEAD  WAITING FOR RESULT SHUTTLE")
+
+			#cancelheadtimer = 0
+			#Head starts the timeout and wait for the result if time out then send reconfig request to Olympus
+			if await(cancelheadtimer  == 1 ):
+				output("cancelling111 the head timer for slot",slot)
+				cancelheadtimer = 0
+			#elif 1>=1:
+				#output("VIPUL GANDHI VIPUL GANDHI VIPUL GANDHI VIPUL GANDHI VIPUL GANDHI VIPUL GANDHI VIPUL GANDHI VIPUL GANDHI VIPUL GANDHI VIPUL GANDHI")					
+				#headtimeout
+			elif timeout(headtimeout):
+				output("INSIDE HEAD TIMEOUT.  for Config No ",confignum)
+				output("send reconfig request to Olympus")
+				send(("reconfigrqtR",r_index),to=olympus)
+
+
+		else :
+			slot = slot + 1
+			output("Slot assigned by head is ",slot)
+			#output("client request: 222222")
+			orderstmt = ""+str(slot)+ "?" + operation
+
+			transmitshuttle(combinedrqtid,retransmitfg)
+
+			#cancelheadtimer = 0
+			#Head starts the timeout and wait for the result if time out then send reconfig request to Olympus
+			if await(cancelheadtimer  == 1 ):
+				output("cancelling22222 the head timer for slot",slot)
+				cancelheadtimer = 0
+					
+				#headtimeout
+			elif timeout(headtimeout):
+				output("INSIDE HEAD TIMEOUT22222222222")
+				output("send reconfig request to Olympus")
+				send(("reconfigrqtR",r_index),to=olympus)
+
+
+	def receive(msg=("cancelheadtimer",cancelheadtimerparam),):
+
+		cancelheadtimer = 1
+
+
+	def receive(msg=("clientrequest",operationparam,c_indexparam,requestid,retransmitfg), from_=Client):
+
+		if rmode == "IMMUTABLE":
+			return None
+		
+		
+			#output("history is at slot 6 is ",history)
+
+		if retransmitfg == 0:
+			output("Client Request : Inside replica",str(r_index)," from Client",str(c_indexparam)," Request Id is ",requestid," Signed Operation from Client is ",operationparam)
+
+		else:
+			output("Forward Request : Inside replica",str(r_index)," from Client",str(c_indexparam)," Request Id is ",requestid," Signed Operation from Client is ",operationparam)
+		#output("client request : Inside replica",str(r_index)," from client ",str(c_indexparam))
+		if c_indexparam in clientrequestno.keys():
+			clientrequestno[c_indexparam] = clientrequestno[c_indexparam] + 1
+		else:
+			clientrequestno[c_indexparam] = 0
+
+		c_index = c_indexparam
+
+		output(" client",c_index,"  message no ",clientrequestno[c_index])
+		
+		'''
+		changeoperation = 0
+		changeresult = 0
+		dropresultstmt = 0
+		'''
+		clearfailures()
+
+		rcvdfaillist = checkclientrequesttrigger(c_indexparam,clientrequestno[c_indexparam])
+
+			#sleep
+		'''	
+		for i in range(0,len(rcvdfaillist),2):
+			#output("i is ",i)
+			rcvdfail = rcvdfaillist[i]		
+			if rcvdfail == 5:
+				output("sleep")
+				output("sleep failure has been injected at Replica",r_index," Client",c_index)
+				sleep_timer = rcvdfaillist[i+1]
+				output("sleep_timer ",sleep_timer)
+				time.sleep (sleep_timer/ 1000.0)
+
+		if drop == 1:
+			output("drop failure has been injected at Replica",r_index," Client",c_index)
+			return
+
+		'''	
+		if r_index == 0:
+			if extra_op == 1:
+				output("extra_op failure has been injected at Replica",r_index," Client",c_index)
+				actualop = operation
+
+				operation = "put('a','a')"
+				applyoperationondict()
+
+				operation = actualop
+
+			if crash == 1 :
+				#output("---------INSIDE SHUTDOWN----------")
+				output("crash failure has been injected at Replica",r_index," Client",c_index)
+				logging.shutdown()
+				os._exit(-1)
+
+			if increment_slot == 1:
+				output("increment_slot() failure  has been injected at Replica",r_index," Client",c_index)
+				slot = slot + 1
+
+		
+
+
+
+		combinedrqtid = "Client" + str(c_index) + str(requestid)
+
+		operationreceived[combinedrqtid]  = 1
+
+		if combinedrqtid in clientidmap:
+			#resultproofdict["result"] = resultparam
+			#resultproofdict["signedresultatslot"] = signedresultproofparam
+			output(" Client Request :Cached Result found for the unique (request id + client id).Therefore the result, resultproof will return from here itself.")
+			res = clientidmap[combinedrqtid]["result"]
+			signedresultproof = clientidmap[combinedrqtid]["signedresultatslot"]
+			output("Client Request : Cached Result is ",result," and result proofs are " ,signedresultproof," at Replica Index ",r_index)
+			send(("CachedResultProofs",res,signedresultproof),to=clients[c_index])
+			
+			output("\n \n")
+
+		else :
+
+			output(operationparam)
+			try:
+				operationenc = clientpublicverifykeys[c_index].verify(operationparam)
+			
+				operation = operationenc.decode()
+
+			except 	nacl.exceptions.BadSignatureError :
+				output(" BadSignatureError : bag signature  is detected for request from client to head")
+			
+			
+		
+			if r_index == 0 :
+				output("Client Request : Verified Operation is ",operation)
+				if retransmitfg == 0:
+					
+					slot = slot + 1
+
+					#if  slot == prevheadslot + 1:
+
+					#prevheadslot = slot
+					output("Slot assigned by head is ",slot)
+
+					#FAILURE INJECTION FOR HEAD
+					for i in range(0,len(rcvdfaillist),2):
+						#output("i is ",i)
+						rcvdfail = rcvdfaillist[i]		
+						if rcvdfail == 5:
+							output("sleep")
+							output("sleep failure has been injected at Replica",r_index," Client",c_index)
+							sleep_timer = rcvdfaillist[i+1]
+							output("sleep_timer ",sleep_timer)
+							time.sleep (sleep_timer/ 1000.0)
+
+					if drop == 1:
+						output("drop failure has been injected at Replica",r_index," Client",c_index)
+						return
+
+
+					rcvdfaillist.clear()
+					#output("client request: 222222")
+					orderstmt = ""+str(slot)+ "?" + operation
+
+					transmitshuttle(combinedrqtid,retransmitfg)
+
+					#else:
+
+						#output("Client Request  : Holes in the slot so the request cannot proceed")
+
+				else :
+					handleReTransmissionRqttoHead(combinedrqtid,retransmitfg)
+
+
+			else :
+				#send(("clientrequest",operationparam,c_indexparam,requestid,1),to=replicas[0])
+				#cancelnonheadtimer = 0
+				#Non-Head Replica starts the timeout and wait for the result shuttle, if time out then send reconfig request to Olympus
+				output("Non - head timer starts to wait for result")
+
+				if await(cancelnonheadtimer  == 1 ):
+					output("cancelling the non-head timer for slot",slot)
+					cancelnonheadtimer = 0
+						
+					#headtimeout
+				elif timeout(nonheadtimeout):
+					output("INSIDE NON HEAD REPLICA TIMEOUT for config ",confignum)
+					output("send reconfig request to Olympus")
+					send(("reconfigrqtR",r_index),to=olympus)
+				'''
+				ordercommand()		
+			
+				applyoperationondict()
+				output("clientrequest : result is ",result)
+		
+				if nextreplica!=None:
+					send(("shuttle",signedorderstmt,signedproofsatslot[slot],c_index),to=nextreplica)
+				'''
+		output("\n \n ")
+
+
+	def receive(msg=("shuttle",signedorderstmtparam,signedorderproofsparam,signedresultproofparam,signedcheckpointproofparam,c_indexparam,combinedrqtid,retransmitfg), from_=Replica):
+		
+		'''
+		if r_index == 1:
+			output("---------INSIDE SHUTDOWN----------")
+			logging.shutdown()
+			os._exit(-1)
+		'''
+
+		if rmode == "IMMUTABLE":
+			return None
+		#output("history is at slot ",slot," is ",history)
+		#output("opdict is ",opdict)
+		operationreceived[combinedrqtid]  = 1
+
+		if retransmitfg == 0:
+			output("Shuttle : Inside replica",str(r_index)," from Client",str(c_indexparam)," Signed Operation Stmt from previous Replicas is ",signedorderstmtparam,"Signed Order Proofs are :",signedorderproofsparam,"Signed Result Proofs are :",signedresultproofparam)
+
+		else :
+			output("Forward Request : Inside replica",str(r_index)," from Client",str(c_indexparam)," Signed Operation Stmt from previous Replicas is ",signedorderstmtparam,"Signed Order Proofs are :",signedorderproofsparam,"Signed Result Proofs are :",signedresultproofparam)
+
+		if c_indexparam in shuttlerequestno.keys():
+			shuttlerequestno[c_indexparam] = shuttlerequestno[c_indexparam] + 1
+		else:
+			shuttlerequestno[c_indexparam] = 0
+		
+		c_index = c_indexparam
+
+		if retransmitfg == 0:
+			output(" client",c_index,"  message no ",shuttlerequestno[c_index])
+
+		#changeoperation = 0;
+		#hangeresult = 0
+		#dropresultstmt = 0
+		clearfailures()
+		rcvdfaillist = checkshuttletrigger(c_indexparam,shuttlerequestno[c_indexparam])
+		'''
+		for i in range(0,len(rcvdfaillist),2):
+			#output("i is ",i)
+			rcvdfail = rcvdfaillist[i]		
+			if rcvdfail == 0:
+				output("changeoperation")
+			if rcvdfail == 1:
+				output("changeresult")
+			if rcvdfail == 2:
+				output("dropresultstmt")
+			if rcvdfail == 3:
+				#output("---------INSIDE SHUTDOWN----------")
+				output("crash failure has been injected at Replica",r_index," Client",c_index)
+				logging.shutdown()
+				os._exit(-1)
+			if rcvdfail == 4:
+				output("truncate_history")
+				trunc_n = rcvdfaillist[i+1]
+				output("trunc_n ",trunc_n)
+			if rcvdfail == 5:
+				output("sleep")
+				sleep_timer = rcvdfaillist[i+1]
+				output("sleep_timer ",sleep_timer)
+			if rcvdfail == 6:
+				output("drop failure has been injected at Replica",r_index," Client",c_index)
+				return
+			if rcvdfail == 7:
+				output("increment_slot")
+			if rcvdfail == 8:
+				output("extra_op failure has been injected at Replica",r_index," Client",c_index)
+			if rcvdfail == 9:
+				output("invalid_order_sig")
+			if rcvdfail == 10:
+				output("invalid_result_sig")
+			if rcvdfail == 11:
+				output("drop_checkpt_stmts")
+		
+
+		'''
+
+
+
+		#sleep
+		for i in range(0,len(rcvdfaillist),2):
+			#output("i is ",i)
+			rcvdfail = rcvdfaillist[i]		
+			if rcvdfail == 5:
+				output("sleep")
+				output("sleep failure has been injected at Replica",r_index," Client",c_index)
+				sleep_timer = rcvdfaillist[i+1]
+				output("sleep_timer ",sleep_timer)
+				time.sleep (sleep_timer/ 1000.0)
+
+			if rcvdfail == 4:
+				output("truncate_history")
+				trunc_n = rcvdfaillist[i+1]
+				output("trunc_n ",trunc_n)
+				getmax = max(history)
+				output("getmax",getmax)
+				startindex = getmax - trunc_n +1
+				output("original history ",history)
+				if startindex <0:
+					startindex = 0
+				for i in range(startindex,getmax+1):
+					history.pop(i,None)
+				output("truncated history ",history)
+
+
+
+		if extra_op == 1:
+			output("extra_op failure has been injected at Replica",r_index," Client",c_index)
+			actualop = operation
+
+			operation = "put('a','a')"
+			applyoperationondict()
+
+			operation = actualop
+
+		if crash == 1 :
+			#output("---------INSIDE SHUTDOWN----------")
+			output("crash failure has been injected at Replica",r_index," Client",c_index)
+			logging.shutdown()
+			os._exit(-1)
+
+		if drop == 1:
+			output("drop failure has been injected at Replica",r_index," Client",c_index)
+			return
+		
+
+		rcvdfaillist.clear()
+
+		try:
+			orderstmtenc = replicapublicverifykeys[r_index-1].verify(signedorderstmtparam)
+			
+			orderstmt = orderstmtenc.decode()
+
+		except 	nacl.exceptions.BadSignatureError :
+				output("BadSignatureError : Send Reconfiguration request to Olympus because previous replica was  not signed correctly raising reconfig from r_index",r_index)
+				send(("reconfigrqtR",r_index),to=olympus)
+		#output("222222")
+		#signedorderproofs = signedorderproofsparam
+		
+		#output("3333")
+		#operation,orderslot = orderstmt.split('?')
+		(orderslot1, sep, operation) = orderstmt.partition('?')
+		orderslot = int(orderslot1)
+		
+		if retransmitfg == 0:
+			output("Shuttle : Verfied Operation is ",operation)
+		
+		else :
+			output("Forward Request: Verfied Operation is ",operation)
+
+		if orderslot == slot + 1:
+			slot = orderslot
+			output("Shuttle : Slot is ",slot,"confignum = ",confignum)#, "global =" ,getconfignum())
+			#getconfignum1()
+			signedproofsatslot[slot] = signedorderproofsparam
+			signedresultatslot[slot] = signedresultproofparam
+
+			if slot % checkpointinterval == 0:
+				checkpointedslot = slot
+				signedcheckpointproofsatslot[slot] = signedcheckpointproofparam
+
+			transmitshuttle(combinedrqtid,retransmitfg)
+			'''
+			ordercommand()
+
+			applyoperationondict()
+			output("shuttle  : result is ",result)
+
+			if nextreplica!=None:
+				send(("shuttle",signedorderstmt,signedproofsatslot[slot],c_index),to=nextreplica)
+			'''
+				 
+		else :
+			if retransmitfg == 0:
+				output("shuttle : Holes in the slot so the request cannot proceed")
+			else :
+				output("forward request : Holes in the slot so the request cannot proceed")
+
+		output("\n \n ")
+	'''
+	def getconfignum():
+		getconfignum1()
+		#time.sleep (1000.0 / 1000.0)
+		output("3")
+		return globalconfigolympus1
+	
+	def getconfignum1():
+		send(("get_confignum",r_index),to=olympus)
+		#time.sleep (1000.0 / 1000.0)
+
+	def receive(msg=("send_confignum",globalconfigolympus), from_=olympus):
+		output("WHAT OLYMPUS SENT is ",globalconfigolympus)
+		if confignum != globalconfigolympus:
+			output("CONFIG MISMATCH-------------")
+			logging.shutdown()
+			os._exit(-1)
+		#output("1")		
+		#output("2")
+		#global globalconfigolympus1
+		#globalconfigolympus1 = globalconfigolympus
+	'''
+	def receive(msg=("resultshuttle",resultparam,signedresultproofparam,combinedrqtid,c_index), from_=nextreplica):
+	
+		output("ResultShuttle :  inside result shuttle Client Id is ",c_index," Result is ",resultparam," Unique Id for caching Result Shuttle :",combinedrqtid," Result Proof ",signedresultproofparam,)
+		if c_index in resultshuttlerequestno.keys():
+			resultshuttlerequestno[c_index] = resultshuttlerequestno[c_index] + 1
+		else:
+			resultshuttlerequestno[c_index] = 0
+
+		output(" message no ",resultshuttlerequestno[c_index])
+		
+
+		#Verification of result statements of result proofs sent by tail 
+		resultstmtarr = []
+		try:
+			for i,val in enumerate(list(signedresultproofparam)):
+				resultstmtenc = replicapublicverifykeys[i].verify(signedresultproofparam[i])
+				#resultstmt = resultstmtenc.decode()
+				#resultstmtarr.append(resultstmt)
+
+		except 	nacl.exceptions.BadSignatureError :
+				output("BadSignatureError : Send Reconfiguration request to Olympus because one of  replica's result stmt was  not signed correctly raising reconfig ")
+				send(("reconfigrqtR",r_index),to=olympus)
+
+
+		if r_index == 0:
+			cancelheadtimer = 1
+
+		else :
+			cancelnonheadtimer = 1
+		'''
+		changeoperation = 0;
+		changeresult = 0
+		dropresultstmt = 0
+		'''
+		clearfailures()
+		rcvdfaillist = checkresultshuttletrigger(c_index,resultshuttlerequestno[c_index])
+
+		completeresultproofs = signedresultproofparam
+		output("Caching of result and resultproofs in clientidmap ( which stores the result ,resultproof at unique Id ",combinedrqtid)
+		resultproofdict = dict()
+		resultproofdict["result"] = resultparam
+		resultproofdict["signedresultatslot"] = signedresultproofparam
+
+		if changeresult == 1:
+			output("resultshuttle: change_result() failure has been injected at Replica",r_index," Client",c_index," slot ",slot," message no",resultshuttlerequestno[c_index])
+
+			result = "OKK"
+			hashresult =  HASHER(result.encode(), encoder=nacl.encoding.HexEncoder)
+			resultstmt = ""+result+"?" + str(hashresult)
+
+
+
+			encresultstmt = str.encode(resultstmt)
+			signedresultstmt = replicaprivatekey.sign(encresultstmt)
+			#output("Ankur :222222")
+			#resultproofdict["signedresultatslot"] = resultstmt
+			#output("resultproofdict->signedresultatslot is",resultproofdict["signedresultatslot"])
+			completeresultproofs[r_index] = signedresultstmt
+
+		
+
+		if dropresultstmt == 1:
+			output("resultshuttle: drop_resultstmt() failure has been injected at Replica",r_index," Client",c_index," slot ",slot," message no",resultshuttlerequestno[c_index])
+
+
+			del completeresultproofs[0] 
+
+			#output("Ankur :222222")
+			
+
+
+		for i in range(0,len(rcvdfaillist),2):
+			#output("i is ",i)
+			rcvdfail = rcvdfaillist[i]		
+			if rcvdfail == 5:
+				output("sleep")
+				output("sleep failure has been injected at Replica",r_index," Client",c_index)
+				sleep_timer = rcvdfaillist[i+1]
+				output("sleep_timer ",sleep_timer)
+				time.sleep (sleep_timer/ 1000.0)
+
+			if rcvdfail == 4:
+				output("truncate_history")
+				trunc_n = rcvdfaillist[i+1]
+				output("trunc_n ",trunc_n)
+				getmax = max(history)
+				output("getmax",getmax)
+				startindex = getmax - trunc_n +1
+				output("original history ",history)
+				if startindex <0:
+					startindex = 0
+				for i in range(startindex,getmax+1):
+					history.pop(i,None)
+				output("truncated history ",history)
+
+
+
+		'''
+		if extra_op == 1:
+			output("extra_op failure has been injected at Replica",r_index," Client",c_index)
+		'''
+		if crash == 1 :
+			#output("---------INSIDE SHUTDOWN----------")
+			output("crash failure has been injected at Replica",r_index," Client",c_index)
+			logging.shutdown()
+			os._exit(-1)
+
+		if drop == 1:
+			output("drop failure has been injected at Replica",r_index," Client",c_index)
+			return
+
+		if extra_op == 1:
+			output("extra_op failure has been injected at Replica",r_index," Client",c_index)
+			actualop = operation
+
+			operation = "put('a','a')"
+			applyoperationondict()
+
+			operation = actualop
+
+
+		rcvdfaillist.clear()
+
+		clientidmap[combinedrqtid] = resultproofdict
+
+		if prevreplica != None :
+			
+			send(("resultshuttle",resultparam,completeresultproofs,combinedrqtid,c_index),to=prevreplica)
+			
+
+
+		output("\n  ")
+			#insert in IdMap
+		'''
+		if changeresult == 1:
+				#output("Ankur :111222")
+				output("change_result() failure has been injected at Replica",r_index," Client",c_index," slot ",slot)
+				result = "OK"
+				hashresult =  HASHER(result.encode(), encoder=nacl.encoding.HexEncoder)
+				resultstmt = ""+result+"?" + str(hashresult)
+				output("Ankur :222222")
+				#output("Ankur : signedresultatslot[slot][r_index-1] is ",str(signedresultatslot[slot][r_index-1]))
+				output("Ankur : Result and ResultProofs sent from Tail :   result sent is ",result,signedresultatslot[slot])
+				signedresultatslot[slot][r_index-1] = resultstmt
+		'''
+
+
+
+	def receive(msg=("completedcheckpoint",signedcompletedcheckpointproofsparam,slot,c_indexparam), from_=nextreplica):
+	
+		output("Completed CheckPoint :  at slot no ",slot,"  inside completed checkpoint shuttle Completed CheckPoint Proofs are ",signedcompletedcheckpointproofsparam)
+
+		'''
+		if c_indexparam in completedchkptrequestno.keys():
+			completedchkptrequestno[c_indexparam] = completedchkptrequestno[c_index] + 1
+		else:
+			completedchkptrequestno[c_indexparam] = 1
+		'''
+
+		completedchkptrequestno = completedchkptrequestno + 1
+		output(" message no ",completedchkptrequestno)
+		
+
+	
+
+		clearfailures()
+		#output("11111111111 checkpointcomp")
+		rcvdfaillist = checkcompletedcheckpointtrigger(-1,completedchkptrequestno)
+		#output("22222222222 checkpointcomp")
+		
+		try:
+		
+			firstcheckpointenc = replicapublicverifykeys[0].verify(signedcompletedcheckpointproofsparam[0])
+			firstcheckpointhash = firstcheckpointenc.decode()
+
+			for i,val in enumerate(list(signedcompletedcheckpointproofsparam)):
+				#output("signedcompletedcheckpointproof is ",signedcompletedcheckpointproofsparam[i]," replica index ",r_index)
+				checkptproofenc = replicapublicverifykeys[i].verify(signedcompletedcheckpointproofsparam[i])
+				checkptproofhash = checkptproofenc.decode()
+				if firstcheckpointhash != checkptproofhash :
+					output("Send Reconfig due to CheckPoint inconsistency")
+					send(("reconfigrqtR",r_index),to=olympus)
+
+		except 	nacl.exceptions.BadSignatureError :
+				output("BadSignatureError : Send Reconfiguration request to Olympus because previous checkpoints are missing or incorrectly signed",r_index)
+				send(("reconfigrqtR",r_index),to=olympus)
+
+		signedcompletedcheckpointproofs = signedcompletedcheckpointproofsparam
+	
+
+		#history.clear()
+		for i in range(checkpointedslot+1):
+			history.pop(i, None)
+		#ischeckpointed = 0
+		#output("drop_checkpt_stmts = ",drop_checkpt_stmts)
+		if drop_checkpt_stmts == 1:
+			output("drop_checkpt_stmts() failure has been injected at Replica",r_index," from Client",c_indexparam)
+			find_t = int((nreplica -1)/2)
+			del signedcompletedcheckpointproofs[:find_t]
+			#mylist = [1,2,3]
+			#del mylist[:n]
+			#print (mylist)
+		#output("prevreplica is ",prevreplica)
+		for i in range(0,len(rcvdfaillist),2):
+			#output("i is ",i)
+			rcvdfail = rcvdfaillist[i]		
+			if rcvdfail == 5:
+				output("sleep")
+				output("sleep failure has been injected at Replica",r_index," Client",c_index)
+				sleep_timer = rcvdfaillist[i+1]
+				output("sleep_timer ",sleep_timer)
+				time.sleep (sleep_timer/ 1000.0)
+
+			if rcvdfail == 4:
+				output("truncate_history")
+				trunc_n = rcvdfaillist[i+1]
+				output("trunc_n ",trunc_n)
+				getmax = max(history)
+				output("getmax",getmax)
+				startindex = getmax - trunc_n +1
+				output("original history ",history)
+				if startindex <0:
+					startindex = 0
+				for i in range(startindex,getmax+1):
+					history.pop(i,None)
+				output("truncated history ",history)
+		
+		if extra_op == 1:
+			output("extra_op failure has been injected at Replica",r_index," Client",c_index)
+			actualop = operation
+
+			operation = "put('a','a')"
+			applyoperationondict()
+
+			operation = actualop
+
+		if crash == 1 :
+			#output("---------INSIDE SHUTDOWN----------")
+			output("crash failure has been injected at Replica",r_index," Client",c_index)
+			logging.shutdown()
+			os._exit(-1)
+
+		if drop == 1:
+			output("drop failure has been injected at Replica",r_index," Client",c_index)
+			return
+
+
+
+		rcvdfaillist.clear()
+
+		if prevreplica != None :
+			
+			send(("completedcheckpoint",signedcompletedcheckpointproofs,slot,c_indexparam),to=prevreplica)
+			
+
+
+		output("\n  ")
+
+	#VPhase3 STARTS	
+	
+	def receive(msg=("wedgeRequest",olympus_signed_wedgerequest,olympus_verify_key,confignum), from_=Olympus):
+		output(" wedgeRequest RECEIEVED for config",confignum)
+
+		#VipulTrigger
+		
+		clearfailures()
+		rcvdfaillist = checkwedgerequesttrigger(-1,wedgeRequestno)
+		#output("---------------------------------------------------------------------rcvdfail ",rcvdfaillist)
+		
+		for i in range(0,len(rcvdfaillist),2):
+			#output("i is ",i)
+			rcvdfail = rcvdfaillist[i]		
+			if rcvdfail == 0:
+				output("changeoperation")
+			if rcvdfail == 1:
+				output("changeresult")
+			if rcvdfail == 2:
+				output("dropresultstmt")
+			if rcvdfail == 3:
+				output("CRASH")
+				logging.shutdown()
+				os._exit(-1)
+			if rcvdfail == 4:
+				output("truncate_history")
+				trunc_n = rcvdfaillist[i+1]
+				output("trunc_n ",trunc_n)
+				getmax = max(history)
+				output("getmax",getmax)
+				startindex = getmax - trunc_n +1
+				output("original history ",history)
+				if startindex <0:
+					startindex = 0
+				for i in range(startindex,getmax+1):
+					history.pop(i,None)
+				output("truncated history ",history)
+			if rcvdfail == 5:
+				output("sleep")
+				sleep_timer = rcvdfaillist[i+1]
+				output("sleep_timer ",sleep_timer)
+				time.sleep (sleep_timer/ 1000.0)
+			if rcvdfail == 6:
+				output("BUT dropping it")				
+				return
+			if rcvdfail == 7:
+				output("increment_slot")
+			if rcvdfail == 8:
+				output("extra_op")
+				operation = "put('a','a')"				
+				applyoperationondict()
+				output(" OPTDICT is ",opdict)
+			if rcvdfail == 9:
+				output("invalid_order_sig")
+			if rcvdfail == 10:
+				output("invalid_result_sig")
+			if rcvdfail == 11:
+				output("drop_checkpt_stmts")
+		rcvdfaillist.clear()
+		wedgeRequestno = wedgeRequestno + 1
+
+
+
+
+
+		cancelheadtimer = 1	
+		cancelnonheadtimer = 1	
+
+		try:
+			checked_wedgerequest  = olympus_verify_key.verify(olympus_signed_wedgerequest)
+
+		except 	nacl.exceptions.BadSignatureError :
+				output(" BadSignatureError : Wedge request from Olympus has been signed incorrectly")
+
+		#becomeImmutable();
+		if rmode == 'ACTIVE':
+			rmode = 'IMMUTABLE'
+			output(" rmode set to IMMUTABLE ")
+			whist = history
+
+			#if slot in signedcheckpointproofsatslot.keys():
+			wchkptProof = signedcompletedcheckpointproofs
+			send(("wedgeStatement",whist,wchkptProof,r_index),to=Olympus)
+			#for i in range(0,nreplica):
+			#rmode[i] = 'IMMUTABLE'
+	
+	def receive(msg=("catchup",deficit,rep_index), from_=Olympus):
+		#VipulTrigger
+		output("entered catchup for  for config",confignum)
+		clearfailures()
+		rcvdfaillist = checkcatchuptrigger(-1,catchup_count)
+		#output("---------------------------------------------------------------------rcvdfail ",rcvdfaillist)
+		
+		for i in range(0,len(rcvdfaillist),2):
+			#output("i is ",i)
+			rcvdfail = rcvdfaillist[i]		
+			if rcvdfail == 0:
+				output("changeoperation")
+			if rcvdfail == 1:
+				output("changeresult")
+			if rcvdfail == 2:
+				output("dropresultstmt")
+			if rcvdfail == 3:
+				output("CRASH")
+				logging.shutdown()
+				os._exit(-1)
+			if rcvdfail == 4:
+				output("truncate_history")
+				trunc_n = rcvdfaillist[i+1]
+				output("trunc_n ",trunc_n)
+				getmax = max(history)
+				output("getmax",getmax)
+				startindex = getmax - trunc_n +1
+				output("original history ",history)
+				if startindex <0:
+					startindex = 0
+				for i in range(startindex,getmax+1):
+					history.pop(i,None)
+				output("truncated history ",history)
+			if rcvdfail == 5:
+				output("sleep")
+				sleep_timer = rcvdfaillist[i+1]
+				output("sleep_timer ",sleep_timer)
+				time.sleep (sleep_timer/ 1000.0)
+			if rcvdfail == 6:
+				output("drop")
+				return
+			if rcvdfail == 7:
+				output("increment_slot")
+			if rcvdfail == 8:
+				output("extra_op")
+				operation = "put('a','a')"				
+				applyoperationondict()
+			if rcvdfail == 9:
+				output("invalid_order_sig")
+			if rcvdfail == 10:
+				output("invalid_result_sig")
+			if rcvdfail == 11:
+				output("drop_checkpt_stmts")
+		rcvdfaillist.clear()
+		catchup_count = catchup_count + 1
+
+
+
+
+
+		operation_to_be_executed = deficit.values()
+		for op in operation_to_be_executed:
+			#maybe increase slot first then apply operation
+			operation = op
+			applyoperationondict()
+		
+		output("inside catchup and opdict is ",opdict)
+
+		currentstate = str(opdict) #do we need to send mode or state? [need to check project.txt]
+		output("currentstate ----------------------", currentstate)
+		statehash =  HASHER(str(currentstate).encode(), encoder=nacl.encoding.HexEncoder)
+		send(("caughtup",statehash,r_index,clientresultstmt,lastsuccessfulopno),to=Olympus)
+	
+	def receive(msg=("get_running_state",), from_=Olympus):
+
+		#VipulTrigger
+		output("entered get_running_state for  for config",confignum)
+		clearfailures()
+		rcvdfaillist = checkgetrunningstatetrigger(-1,get_running_state_count)
+		#output("---------------------------------------------------------------------rcvdfail ",rcvdfaillist)
+		
+		for i in range(0,len(rcvdfaillist),2):
+			#output("i is ",i)
+			rcvdfail = rcvdfaillist[i]		
+			if rcvdfail == 0:
+				output("changeoperation")
+			if rcvdfail == 1:
+				output("changeresult")
+			if rcvdfail == 2:
+				output("dropresultstmt")
+			if rcvdfail == 3:
+				output("CRASH")
+				logging.shutdown()
+				os._exit(-1)
+			if rcvdfail == 4:
+				output("truncate_history")
+				trunc_n = rcvdfaillist[i+1]
+				output("trunc_n ",trunc_n)
+			if rcvdfail == 5:
+				output("sleep")
+				sleep_timer = rcvdfaillist[i+1]
+				output("sleep_timer ",sleep_timer)
+				time.sleep (sleep_timer/ 1000.0)
+			if rcvdfail == 6:
+				output("drop")
+				return
+			if rcvdfail == 7:
+				output("increment_slot")
+			if rcvdfail == 8:
+				output("extra_op")
+				operation = "put('a','a')"				
+				applyoperationondict()
+				output(" OPTDICT is ",opdict)
+			if rcvdfail == 9:
+				output("invalid_order_sig")
+			if rcvdfail == 10:
+				output("invalid_result_sig")
+			if rcvdfail == 11:
+				output("drop_checkpt_stmts")
+		rcvdfaillist.clear()
+		get_running_state_count = get_running_state_count+1
+		
+		output("send_running_state. SENDING OPTDICT TO OLYMPUS ",opdict)
+		send(("send_running_state",opdict,r_index),to=Olympus)
+	
+	def receive(msg=("replica_terminate",term_index_r), from_=Olympus):		
+		output("terminate replica")
+		end(replicas[term_index_r])
+		#os.exit(1)
+	
+	#VPhase3 ENDS
+		
+
+

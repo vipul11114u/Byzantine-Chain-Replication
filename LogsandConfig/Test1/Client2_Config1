@@ -1,0 +1,44 @@
+[2017-11-22 20:12:43,160] Client.Client<Client:40402#ClientNode2>:OUTPUT: client starting
+[2017-11-22 20:12:43,167] Client.Client<Client:40402#ClientNode2>:OUTPUT: receive clientkeys
+[2017-11-22 20:12:43,668] Client.Client<Client:40402#ClientNode2>:OUTPUT: inside dosomework
+[2017-11-22 20:12:43,669] Client.Client<Client:40402#ClientNode2>:OUTPUT: work is  ["put('movie3’,’star3’)", "append('movie3’,’ wars3’)", " get('movie3’)"]   worklen is  3
+[2017-11-22 20:12:43,670] Client.Client<Client:40402#ClientNode2>:OUTPUT: Operation at the start of Client Id 2  is  put('movie3’,’star3’)
+[2017-11-22 20:12:43,705] Client.Client<Client:40402#ClientNode2>:OUTPUT: INSIDE CLIENT RESULT PROOF RECEIVER: received result,signedresultproofs   for slot 3
+[2017-11-22 20:12:43,706] Client.Client<Client:40402#ClientNode2>:OUTPUT: Result Statements verified successfully for all replicas resultstmtarr is  ["OK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'", "OK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'", "OK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'"]
+[2017-11-22 20:12:43,706] Client.Client<Client:40402#ClientNode2>:OUTPUT: RESULT from tail is   OK
+[2017-11-22 20:12:43,707] Client.Client<Client:40402#ClientNode2>:OUTPUT: result in result proof from replicas are  OK
+[2017-11-22 20:12:43,707] Client.Client<Client:40402#ClientNode2>:OUTPUT: result in result proof from replicas are  OK
+[2017-11-22 20:12:43,707] Client.Client<Client:40402#ClientNode2>:OUTPUT: result in result proof from replicas are  OK
+[2017-11-22 20:12:43,707] Client.Client<Client:40402#ClientNode2>:OUTPUT: countreplicas(number of replicas having same hash(result)) are    3 total no of replicas(2t+1)  are  3
+[2017-11-22 20:12:43,708] Client.Client<Client:40402#ClientNode2>:OUTPUT: Client accepts the result since (t+1) majority of replicas have same result  OK
+[2017-11-22 20:12:43,708] Client.Client<Client:40402#ClientNode2>:OUTPUT: Operation at the start of Client Id 2  is  append('movie3’,’ wars3’)
+[2017-11-22 20:12:44,709] Client.Client<Client:40402#ClientNode2>:OUTPUT: INSIDE TIMEOUT
+[2017-11-22 20:12:44,710] Client.Client<Client:40402#ClientNode2>:OUTPUT: Client also checks if the configuration has been changed
+[2017-11-22 20:12:44,713] da.sim.Router<OSProcessContainer-1>:ERROR: Could not send message due to: TransportException("connection refused by ('127.0.0.1', 19857)",)
+[2017-11-22 20:12:44,714] da.sim.Router<OSProcessContainer-1>:ERROR: Could not send message due to: TransportException("connection refused by ('127.0.0.1', 30948)",)
+[2017-11-22 20:12:44,715] da.sim.Router<OSProcessContainer-1>:ERROR: Could not send message due to: TransportException("connection refused by ('127.0.0.1', 23840)",)
+[2017-11-22 20:12:48,716] Client.Client<Client:40402#ClientNode2>:OUTPUT: Operation at the start of Client Id 2  is   get('movie3’)
+[2017-11-22 20:12:48,717] da.sim.Router<OSProcessContainer-1>:ERROR: Could not send message due to: TransportException("connection refused by ('127.0.0.1', 19857)",)
+[2017-11-22 20:12:48,718] Client.Client<Client:40402#ClientNode2>:OUTPUT: receive clientkeys
+[2017-11-22 20:12:48,719] Client.Client<Client:40402#ClientNode2>:OUTPUT: Yes the configuration has been changed.Notification received to Client from Olympus
+[2017-11-22 20:12:48,720] Client.Client<Client:40402#ClientNode2>:OUTPUT: Last executed result before Reconfiguration :  OK
+[2017-11-22 20:12:48,720] Client.Client<Client:40402#ClientNode2>:OUTPUT: Last executed operation number was :  2  and operation wass  append('movie3’,’ wars3’)
+[2017-11-22 20:12:48,720] Client.Client<Client:40402#ClientNode2>:OUTPUT: WORK was :  ["put('movie3’,’star3’)", "append('movie3’,’ wars3’)", " get('movie3’)"]
+[2017-11-22 20:12:48,721] Client.Client<Client:40402#ClientNode2>:OUTPUT: WORK is :  [" get('movie3’)"]
+[2017-11-22 20:12:48,721] Client.Client<Client:40402#ClientNode2>:OUTPUT: inside dosomework
+[2017-11-22 20:12:48,721] Client.Client<Client:40402#ClientNode2>:OUTPUT: work is  [" get('movie3’)"]   worklen is  1
+[2017-11-22 20:12:48,721] Client.Client<Client:40402#ClientNode2>:OUTPUT: Operation at the start of Client Id 2  is   get('movie3’)
+[2017-11-22 20:12:48,723] Client.Client<Client:40402#ClientNode2>:OUTPUT: Yes the configuration has been changed.Notification received to Client from Olympus
+[2017-11-22 20:12:48,724] Client.Client<Client:40402#ClientNode2>:OUTPUT: localClientDict :  {} of client  2
+[2017-11-22 20:12:48,724] Client.Client<Client:40402#ClientNode2>:OUTPUT: final done sent to olympus
+[2017-11-22 20:12:48,740] Client.Client<Client:40402#ClientNode2>:OUTPUT: INSIDE CLIENT RESULT PROOF RECEIVER: received result,signedresultproofs   for slot 1
+[2017-11-22 20:12:48,741] Client.Client<Client:40402#ClientNode2>:OUTPUT: Result Statements verified successfully for all replicas resultstmtarr is  ["?b'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'", "?b'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'", "?b'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'"]
+[2017-11-22 20:12:48,741] Client.Client<Client:40402#ClientNode2>:OUTPUT: RESULT from tail is   
+[2017-11-22 20:12:48,741] Client.Client<Client:40402#ClientNode2>:OUTPUT: result in result proof from replicas are  
+[2017-11-22 20:12:48,741] Client.Client<Client:40402#ClientNode2>:OUTPUT: result in result proof from replicas are  
+[2017-11-22 20:12:48,742] Client.Client<Client:40402#ClientNode2>:OUTPUT: result in result proof from replicas are  
+[2017-11-22 20:12:48,742] Client.Client<Client:40402#ClientNode2>:OUTPUT: countreplicas(number of replicas having same hash(result)) are    3 total no of replicas(2t+1)  are  3
+[2017-11-22 20:12:48,742] Client.Client<Client:40402#ClientNode2>:OUTPUT: Client accepts the result since (t+1) majority of replicas have same result  
+[2017-11-22 20:12:48,742] Client.Client<Client:40402#ClientNode2>:OUTPUT: localClientDict :  {'movie3’': '’star3’’ wars3’'} of client  2
+[2017-11-22 20:12:48,743] Client.Client<Client:40402#ClientNode2>:OUTPUT: final done sent to olympus
+[2017-11-22 20:28:07,695] da.api<MainProcess>:WARNING: Received keyboard interrupt. 

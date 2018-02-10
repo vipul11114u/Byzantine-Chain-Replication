@@ -1,0 +1,32 @@
+[2017-11-22 21:36:28,710] Client.Client<Client:02002#ClientNode1>:OUTPUT: client starting
+[2017-11-22 21:36:28,718] Client.Client<Client:02002#ClientNode1>:OUTPUT: receive clientkeys
+[2017-11-22 21:36:29,224] Client.Client<Client:02002#ClientNode1>:OUTPUT: inside dosomework
+[2017-11-22 21:36:29,224] Client.Client<Client:02002#ClientNode1>:OUTPUT: work is  ["put('jedi,'luke skywalker)", " slice('jedi','0:4')", " get('jedi')"]   worklen is  3
+[2017-11-22 21:36:29,225] Client.Client<Client:02002#ClientNode1>:OUTPUT: Operation at the start of Client Id 1  is  put('jedi,'luke skywalker)
+[2017-11-22 21:36:29,255] Client.Client<Client:02002#ClientNode1>:OUTPUT: INSIDE CLIENT RESULT PROOF RECEIVER: received result,signedresultproofs   for slot 2
+[2017-11-22 21:36:29,256] Client.Client<Client:02002#ClientNode1>:OUTPUT: Result Statements verified successfully for all replicas resultstmtarr is  ["OK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'", "OK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'", "OK?b'565339bc4d33d72817b583024112eb7f5cdf3e5eef0252d6ec1b9c9a94e12bb3'"]
+[2017-11-22 21:36:29,256] Client.Client<Client:02002#ClientNode1>:OUTPUT: RESULT from tail is   OK
+[2017-11-22 21:36:29,257] Client.Client<Client:02002#ClientNode1>:OUTPUT: result in result proof from replicas are  OK
+[2017-11-22 21:36:29,257] Client.Client<Client:02002#ClientNode1>:OUTPUT: result in result proof from replicas are  OK
+[2017-11-22 21:36:29,257] Client.Client<Client:02002#ClientNode1>:OUTPUT: result in result proof from replicas are  OK
+[2017-11-22 21:36:29,257] Client.Client<Client:02002#ClientNode1>:OUTPUT: countreplicas(number of replicas having same hash(result)) are    3 total no of replicas(2t+1)  are  3
+[2017-11-22 21:36:29,258] Client.Client<Client:02002#ClientNode1>:OUTPUT: Client accepts the result since (t+1) majority of replicas have same result  OK
+[2017-11-22 21:36:29,258] Client.Client<Client:02002#ClientNode1>:OUTPUT: Operation at the start of Client Id 1  is   slice('jedi','0:4')
+[2017-11-22 21:36:29,281] Client.Client<Client:02002#ClientNode1>:OUTPUT: INSIDE CLIENT RESULT PROOF RECEIVER: received result,signedresultproofs   for slot 5
+[2017-11-22 21:36:29,282] Client.Client<Client:02002#ClientNode1>:OUTPUT:  BadSignatureError : Sending reconfig to Olympus :One or more than one resultproofs have been tempered
+[2017-11-22 21:36:29,284] Client.Client<Client:02002#ClientNode1>:OUTPUT: Operation at the start of Client Id 1  is   get('jedi')
+[2017-11-22 21:36:30,286] Client.Client<Client:02002#ClientNode1>:OUTPUT: INSIDE TIMEOUT
+[2017-11-22 21:36:30,286] Client.Client<Client:02002#ClientNode1>:OUTPUT: Client also checks if the configuration has been changed
+[2017-11-22 21:36:30,287] da.sim.Router<OSProcessContainer-1>:ERROR: Could not send message due to: TransportException("connection refused by ('127.0.0.1', 12134)",)
+[2017-11-22 21:36:30,288] da.sim.Router<OSProcessContainer-1>:ERROR: Could not send message due to: TransportException("connection refused by ('127.0.0.1', 16566)",)
+[2017-11-22 21:36:30,288] da.sim.Router<OSProcessContainer-1>:ERROR: Could not send message due to: TransportException("connection refused by ('127.0.0.1', 29277)",)
+[2017-11-22 21:36:34,290] Client.Client<Client:02002#ClientNode1>:OUTPUT: localClientDict :  {'jedi': 'luke'} of client  1
+[2017-11-22 21:36:34,290] Client.Client<Client:02002#ClientNode1>:OUTPUT: final done sent to olympus
+[2017-11-22 21:36:34,291] Client.Client<Client:02002#ClientNode1>:OUTPUT: receive clientkeys
+[2017-11-22 21:36:34,291] Client.Client<Client:02002#ClientNode1>:OUTPUT: Yes the configuration has been changed.Notification received to Client from Olympus
+[2017-11-22 21:36:34,292] Client.Client<Client:02002#ClientNode1>:OUTPUT: Last executed result before Reconfiguration :  luke
+[2017-11-22 21:36:34,292] Client.Client<Client:02002#ClientNode1>:OUTPUT: Last executed operation number was :  3  and operation wass   get('jedi')
+[2017-11-22 21:36:34,292] Client.Client<Client:02002#ClientNode1>:OUTPUT: WORK was :  ["put('jedi,'luke skywalker)", " slice('jedi','0:4')", " get('jedi')"]
+[2017-11-22 21:36:34,292] Client.Client<Client:02002#ClientNode1>:OUTPUT: 222WORK is :  []
+[2017-11-22 21:36:34,293] Client.Client<Client:02002#ClientNode1>:OUTPUT: Yes the configuration has been changed.Notification received to Client from Olympus
+[2017-11-22 21:37:08,886] da.api<MainProcess>:WARNING: Received keyboard interrupt. 
